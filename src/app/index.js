@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router', 'ngMaterial', 'nvd3', 'app'])
+angular.module('terresAdmin', ['ngAnimate', 'ngCookies', 'ngSanitize', 'ui.router', 'ngMaterial', 'ngResource', 'app'])
 
   .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider, $mdIconProvider) {
     $stateProvider
@@ -11,20 +11,22 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng
         controllerAs: 'vm',
         abstract: true
       })
-      .state('home.dashboard', {
-        url: '/dashboard',
-        templateUrl: 'app/views/dashboard.html',
-        data: {
-          title: 'Dashboard'
-        }
-      })
-      .state('home.profile', {
-        url: '/profile',
-        templateUrl: 'app/views/profile.html',
-        controller: 'ProfileController',
+      .state('home.terres', {
+        url: '/terres',
+        templateUrl: 'app/views/terres.html',
+        controller: 'terresController',
         controllerAs: 'vm',
         data: {
-          title: 'Profile'
+          title: 'terres Catalunya'
+        }
+      })
+      .state('home.terreslab', {
+        url: '/terreslab',
+        templateUrl: 'app/views/terreslab.html',
+        controller: 'terresLabController',
+        controllerAs: 'vm',
+        data: {
+          title: 'terresLAB'
         }
       })
       .state('home.table', {
@@ -37,7 +39,7 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch', 'ng
         }
       });
 
-    $urlRouterProvider.otherwise('/dashboard');
+    $urlRouterProvider.otherwise('/terres');
 
     $mdThemingProvider
       .theme('default')

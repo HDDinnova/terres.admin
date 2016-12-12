@@ -8,13 +8,13 @@
     var menuItems = [
       {
         name: 'terres Catalunya',
-        icon: 'dashboard',
-        sref: '.dashboard'
+        icon: 'terres.svg',
+        sref: '.terres'
       },
       {
         name: 'terres LAB',
-        icon: 'person',
-        sref: '.profile'
+        icon: 'terreslab.svg',
+        sref: '.terreslab'
       },
       {
         name: 'Afegir competidors',

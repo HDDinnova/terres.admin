@@ -2,11 +2,11 @@
 
   angular
     .module('app')
-    .controller('ProfileController', [
-      ProfileController
+    .controller('terresLabController', [
+      terresLabController
     ]);
 
-  function ProfileController() {
+  function terresLabController() {
     var vm = this;
 
     vm.user = {
