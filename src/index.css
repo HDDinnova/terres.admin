@@ -1,0 +1,63 @@
+html, body, #root {
+  margin: 0;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  overflow: auto !important;
+}
+body, h1, h2, h3 {
+  font-weight: 300
+}
+md-toolbar:not(.md-hue-1), .md-fab {
+  fill: #fff;
+}
+md-sidenav {
+  fill: #737373;
+}
+.user-avatar {
+  border-radius: 99%;
+}
+md-toolbar.md-tall {
+  height: 64px;
+  max-height: 64px;
+  min-height: 64px;
+}
+code {
+  color: #4285f4;
+  -webkit-font-smoothing: auto;
+  font-weight: 300;
+  background-color: #F2F2F2;
+  padding: 10px;
+}
+.text-center {
+  text-align: center!important
+}
+ul {
+  list-style: none
+}
+.img_form_switch{
+  max-height: 20px;
+}
+.md-fab-mini{
+  width: 35px !important;
+  height: 30px !important;
+  line-height: normal !important;
+  background-color: #8cbacc !important;
+  color: white !important;
+}
+.card-film-add img{
+  max-height: 5rem;
+}
+md-card md-card-footer{
+  padding: 0 !important;
+}
+md-card-footer ng-md-icon{
+  cursor: pointer;
+}
+.videofilm{
+  width: 45%;
+  height: inherit;
+  margin-top: 1rem;
+}
+.md-button.md-fab[disabled]{
+  background-color: rgba(0,0,0,0.12) !important;
+}

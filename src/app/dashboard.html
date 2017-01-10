@@ -1,0 +1,43 @@
+<md-table-container>
+  <table md-table>
+    <thead md-head>
+      <th md-column><span>Nom</span></th>
+      <th md-column><span>Empresa</span></th>
+      <th md-column><span>País</span></th>
+      <th md-column><span>Pagament</span></th>
+      <th md-column><span>Justificant</span></th>
+    </thead>
+    <tbody md-body>
+      <tr ng-repeat="comp in competitors">
+        <td md-cell>{{comp.fullName}}</td>
+        <td md-cell>{{comp.comName}}</td>
+        <td md-cell>{{comp.country}}</td>
+        <td md-cell>{{comp.payment}}</td>
+        <td md-cell>{{comp.paymentproof}}</td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+
+<!-- <md-table-container>
+  <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+    <thead>
+      <tr md-row>
+        <th md-column><span>Nom</span></th>
+        <th md-column><span>Empresa</span></th>
+        <th md-column><span>País</span></th>
+        <th md-column><span>Pagament</span></th>
+        <th md-column><span>Justificant</span></th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row ng-repeat="comp in competitors">
+        <td md-cell>{{comp.fullName}}</td>
+        <td md-cell>{{comp.comName}}</td>
+        <td md-cell>{{comp.country}}</td>
+        <td md-cell>{{comp.payment}}</td>
+        <td md-cell>{{comp.paymentproof}}</td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container> -->

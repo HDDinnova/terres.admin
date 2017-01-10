@@ -1,0 +1,22 @@
+<md-table-container>
+  <table md-table>
+    <thead md-head>
+      <th md-column><span>Nom</span></th>
+      <th md-column><span>Cognoms</span></th>
+      <th md-column><span>E-mail</span></th>
+      <th md-column><span>Ciutat</span></th>
+      <th md-column><span>País</span></th>
+      <th md-column><span>Categoria</span></th>
+    </thead>
+    <tbody md-body>
+      <tr ng-repeat="t in assistents">
+        <td md-cell>{{t.nom}}</td>
+        <td md-cell>{{t.cognoms}}</td>
+        <td md-cell>{{t.email}}</td>
+        <td md-cell>{{t.ciutat}}</td>
+        <td md-cell>{{t.pais}}</td>
+        <td md-cell>{{t.categoria}}</td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>

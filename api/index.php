@@ -24,29 +24,7 @@ Flight::route('GET /', function(){
   $sql = "SELECT fullName,comName,country,paymentproof,payment FROM competitors";
   $comp = $db->prepare($sql);
   $comp->execute();
-  $comps = [];
-  while ($c = $comp->fetch(PDO::FETCH_ASSOC)) {
-    $comps[] = $c;
-  }
-
-  $db = NULL;
-
-  Flight::json($comps);
-});
-
-///////
-// List all members registered to terres LAB
-///////
-Flight::route('GET /terreslab', function(){
-  $db = Flight::db();
-
-  $sql = "SELECT nom,cognoms,email,ciutat,pais,categoria FROM terreslab";
-  $comp = $db->prepare($sql);
-  $comp->execute();
-  $comps = [];
-  while ($c = $comp->fetch(PDO::FETCH_ASSOC)) {
-    $comps[] = $c;
-  }
+  $comps = $comp->fetch(PDO::FETCH_ASSOC);
 
   $db = NULL;
 
