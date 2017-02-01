@@ -1,56 +1,59 @@
 <md-content layout-wrap>
-    <form>
-      <md-input-container>
-        <label>Nom Complet</label>
-        <input type="text" ng-model="user.fullName">
-      </md-input-container>
-      <md-input-container>
-        <label>Empresa</label>
-        <input type="text" ng-model="user.comName">
-      </md-input-container>
-      <md-input-container>
-        <label>NIF</label>
-        <input type="text" ng-model="user.vat">
-      </md-input-container>
-      <md-input-container>
-        <label>Adreça</label>
-        <input type="text" ng-model="user.address">
-      </md-input-container>
-      <md-input-container>
-        <label>Codi Postal</label>
-        <input type="text" ng-model="user.zip">
-      </md-input-container>
-      <md-input-container>
-        <label>Ciutat</label>
-        <input type="text" ng-model="user.city">
-      </md-input-container>
-      <md-input-container>
-        <label>País</label>
-        <input type="text" ng-model="user.country">
-      </md-input-container>
-      <md-input-container>
-        <label>Telèfon</label>
-        <input type="text" ng-model="user.phone">
-      </md-input-container>
-      <md-input-container>
-        <label>E-mail</label>
-        <input type="text" ng-model="user.email">
-      </md-input-container>
-      <md-input-container>
-        <label>Web</label>
-        <input type="text" ng-model="user.website">
-      </md-input-container>
-      <md-input-container>
-        <label>Facebook</label>
-        <input type="text" ng-model="user.facebook">
-      </md-input-container>
-      <md-input-container>
-        <label>Plataforma</label>
-        <input type="text" ng-model="user.plataforma">
-      </md-input-container>
-      <md-input-container>
-        <label>Referència</label>
-        <input type="text" ng-model="user.referencia">
-      </md-input-container>
-    </form>
+  <form>
+    <md-input-container>
+      <label>Nom Complet</label>
+      <input type="text" ng-model="user.fullName">
+    </md-input-container>
+    <md-input-container>
+      <label>Empresa</label>
+      <input type="text" ng-model="user.comName">
+    </md-input-container>
+    <md-input-container>
+      <label>NIF</label>
+      <input type="text" ng-model="user.vat">
+    </md-input-container>
+    <md-input-container>
+      <label>Adreça</label>
+      <input type="text" ng-model="user.address">
+    </md-input-container>
+    <md-input-container>
+      <label>Codi Postal</label>
+      <input type="text" ng-model="user.zip">
+    </md-input-container>
+    <md-input-container>
+      <label>Ciutat</label>
+      <input type="text" ng-model="user.city">
+    </md-input-container>
+    <md-input-container>
+      <label>País</label>
+      <input type="text" ng-model="user.country">
+    </md-input-container>
+    <md-input-container>
+      <label>Telèfon</label>
+      <input type="text" ng-model="user.phone">
+    </md-input-container>
+    <md-input-container>
+      <label>E-mail</label>
+      <input type="text" ng-model="user.email">
+    </md-input-container>
+    <md-input-container>
+      <label>Web</label>
+      <input type="text" ng-model="user.website">
+    </md-input-container>
+    <md-input-container>
+      <label>Facebook</label>
+      <input type="text" ng-model="user.facebook">
+    </md-input-container>
+    <md-input-container>
+      <label>Plataforma</label>
+      <input type="text" ng-model="user.plataforma">
+    </md-input-container>
+    <md-input-container>
+      <label>Referència</label>
+      <input type="text" ng-model="user.referencia">
+    </md-input-container>
+  </form>
+  <div layout="row" layout-align="center" flex="">
+    <md-button ng-click="send()" class="md-raised md-primary" type="submit">ENVIAR</md-button>
+  </div>
 </md-content>

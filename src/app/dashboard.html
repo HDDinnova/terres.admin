@@ -1,43 +1,27 @@
-<md-table-container>
-  <table md-table>
-    <thead md-head>
-      <th md-column><span>Nom</span></th>
-      <th md-column><span>Empresa</span></th>
-      <th md-column><span>País</span></th>
-      <th md-column><span>Pagament</span></th>
-      <th md-column><span>Justificant</span></th>
-    </thead>
-    <tbody md-body>
-      <tr ng-repeat="comp in competitors">
-        <td md-cell>{{comp.fullName}}</td>
-        <td md-cell>{{comp.comName}}</td>
-        <td md-cell>{{comp.country}}</td>
-        <td md-cell>{{comp.payment}}</td>
-        <td md-cell>{{comp.paymentproof}}</td>
-      </tr>
-    </tbody>
-  </table>
-</md-table-container>
-
-<!-- <md-table-container>
-  <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
-    <thead>
-      <tr md-row>
-        <th md-column><span>Nom</span></th>
-        <th md-column><span>Empresa</span></th>
-        <th md-column><span>País</span></th>
-        <th md-column><span>Pagament</span></th>
-        <th md-column><span>Justificant</span></th>
-      </tr>
-    </thead>
-    <tbody md-body>
-      <tr md-row ng-repeat="comp in competitors">
-        <td md-cell>{{comp.fullName}}</td>
-        <td md-cell>{{comp.comName}}</td>
-        <td md-cell>{{comp.country}}</td>
-        <td md-cell>{{comp.payment}}</td>
-        <td md-cell>{{comp.paymentproof}}</td>
-      </tr>
-    </tbody>
-  </table>
-</md-table-container> -->
+<md-content>
+  <md-table-container>
+    <table md-table>
+      <thead md-head>
+        <th md-column>Nom</th>
+        <th md-column>Empresa</th>
+        <th md-column>País</th>
+        <th md-column>Factura</th>
+        <th md-column>Número</th>
+        <th md-column>Editar</th>
+        <th md-column>Enviar mail</th>
+      </thead>
+      <tbody md-body>
+        <tr md-select="comp" md-autoselect ng-repeat="comp in competitors">
+          <td md-cell>{{comp.fullName}}</td>
+          <td md-cell>{{comp.comName}}</td>
+          <td md-cell>{{comp.country}}</td>
+          <td md-cell ng-if="comp.factura === '1'">SI</td>
+          <td md-cell ng-if="comp.factura === '0'">NO</td>
+          <td md-cell>{{comp.numfactura}}</td>
+          <td md-cell><md-button class="md-mini" ng-click="edit(comp.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
+          <td md-cell><md-button class="md-mini" ng-click="mail(comp.id)" aria-label="reenviar mail"><ng-md-icon icon="mail_outline"></ng-md-icon></md-button></td>
+        </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+</md-content>

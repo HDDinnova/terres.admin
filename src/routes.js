@@ -29,5 +29,41 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: 'app/insert.html',
       controller: 'InsertCtrl',
       controllerAs: 'insert'
+    })
+    .state('index.competitor', {
+      url: '',
+      params: {
+        id: null
+      },
+      templateUrl: 'app/competitor.html',
+      controller: 'CompCtrl',
+      controllerAs: 'compctrl'
+    })
+    .state('index.filmdoc', {
+      url: '',
+      params: {
+        id: null
+      },
+      templateUrl: 'app/filmdoc.html',
+      controller: 'FilmdocCtrl',
+      controllerAs: 'filmdoc'
+    })
+    .state('index.filmcorp', {
+      url: '',
+      params: {
+        id: null
+      },
+      templateUrl: 'app/filmcorp.html',
+      controller: 'FilmcorpCtrl',
+      controllerAs: 'filmcorp'
+    })
+    .state('index.filmtour', {
+      url: '',
+      params: {
+        id: null
+      },
+      templateUrl: 'app/filmtour.html',
+      controller: 'FilmtourCtrl',
+      controllerAs: 'filmtour'
     });
 }

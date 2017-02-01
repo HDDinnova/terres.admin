@@ -1,0 +1,193 @@
+<md-content>
+  <form>
+    <md-card>
+      <h2>Informació administractiva</h2>
+      <md-card-content>
+        <md-input-container>
+          <label>Nom Complet</label>
+          <input type="text" ng-model="user.fullName">
+        </md-input-container>
+        <md-input-container>
+          <label>Empresa</label>
+          <input type="text" ng-model="user.comName">
+        </md-input-container>
+        <md-input-container>
+          <label>NIF</label>
+          <input type="text" ng-model="user.vat">
+        </md-input-container>
+        <md-input-container>
+          <label>Adreça</label>
+          <input type="text" ng-model="user.address">
+        </md-input-container>
+        <md-input-container>
+          <label>Ciutat</label>
+          <input type="text" ng-model="user.city">
+        </md-input-container>
+        <md-input-container>
+          <label>Codi Postal</label>
+          <input type="text" ng-model="user.zip">
+        </md-input-container>
+        <md-input-container>
+          <label>Telèfon</label>
+          <input type="text" ng-model="user.phone">
+        </md-input-container>
+        <md-input-container>
+          <label>Correu electrònic</label>
+          <input type="text" ng-model="user.email">
+        </md-input-container>
+        <md-input-container>
+          <label>Pàgina web</label>
+          <input type="text" ng-model="user.website">
+        </md-input-container>
+        <md-input-container>
+          <label>Facebook</label>
+          <input type="text" ng-model="user.facebook">
+        </md-input-container>
+        <md-input-container>
+          <label>Plataforma d'inscripció</label>
+          <input type="text" ng-model="user.plataforma">
+        </md-input-container>
+        <md-input-container>
+          <label>Referència d'inscripció</label>
+          <input type="text" ng-model="user.referencia">
+        </md-input-container>
+      </md-card-content>
+      <div class="md-actions" layout="row" layout-align="start">
+         <md-button class="md-mini" ng-click="saveComp()" aria-label="guardar dades"><ng-md-icon icon="send"></ng-md-icon></md-button>
+       </div>
+    </md-card>
+    <md-card>
+      <md-card-content>
+        <h2>Administració</h2>
+        <md-input-container>
+          <label>Pagat</label>
+          <md-select ng-model="user.payment">
+            <md-option ng-value="1">SI</md-option>
+            <md-option ng-value="0">NO</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Facturat</label>
+          <md-select ng-model="user.factura">
+            <md-option ng-value="1">SI</md-option>
+            <md-option ng-value="0">NO</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Número factura</label>
+          <input type="text" ng-model="user.numfactura">
+        </md-input-container>
+      </md-card-content>
+      <div class="md-actions" layout="row" layout-align="start">
+         <md-button class="md-mini" ng-click="save()" aria-label="veure fitxa"><ng-md-icon icon="send"></ng-md-icon></md-button>
+       </div>
+    </md-card>
+    <md-card ng-if="user.documentary.nfilms">
+      <md-card-content>
+        <h2>Documentals - {{user.documentary.nfilms}}</h2>
+        <md-table-container>
+          <table md-table>
+            <thead md-head>
+              <th md-column>Títol</th>
+              <th md-column>Editar</th>
+            </thead>
+            <tbody md-body>
+              <tr md-select="comp" md-autoselect ng-repeat="t in user.documentary.title">
+                <td md-cell>{{t.title}}</td>
+                <td md-cell><md-button class="md-mini" ng-click="filmdoc(t.id)" aria-label="veure fitxa"><ng-md-icon icon="mode_edit"></ng-md-icon></md-button></td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </md-card-content>
+    </md-card>
+    <md-card ng-if="user.tourism.nfilms">
+      <md-card-content>
+        <h2>Films turístics - {{user.tourism.nfilms || 0}}</h2>
+        <md-table-container>
+          <table md-table>
+            <thead md-head>
+              <th md-column>Títol</th>
+              <th md-column>Editar</th>
+            </thead>
+            <tbody md-body>
+              <tr md-select="comp" md-autoselect ng-repeat="t in user.tourism.title">
+                <td md-cell>{{t.title}}</td>
+                <td md-cell><md-button class="md-mini" ng-click="filmtour(t.id)" aria-label="veure fitxa"><ng-md-icon icon="mode_edit"></ng-md-icon></md-button></td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </md-card-content>
+    </md-card>
+    <md-card ng-if="user.corporate.nfilms">
+      <md-card-content>
+        <h2>Films Corporatius - {{user.corporate.nfilms || 0}}</h2>
+        <md-table-container>
+          <table md-table>
+            <thead md-head>
+              <th md-column>Títol</th>
+              <th md-column>Editar</th>
+            </thead>
+            <tbody md-body>
+              <tr md-select="comp" md-autoselect ng-repeat="t in user.corporate.title">
+                <td md-cell>{{t.title}}</td>
+                <td md-cell><md-button class="md-mini" ng-click="filmcorp(t.id)" aria-label="veure fitxa"><ng-md-icon icon="mode_edit"></ng-md-icon></md-button></td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </md-card-content>
+    </md-card>
+    <div layout-gt-sm="row" layout-sm="column">
+      <md-card>
+        <md-card-content>
+          <h2>Afegir documental</h2>
+          <md-input-container>
+            <label>Títol</label>
+            <input type="text" ng-model="film.titledoc">
+          </md-input-container>
+          <md-radio-group ng-model="film.section">
+            <md-radio-button value="1" aria-label="terres"><img src="img/terres-mini.png" style="height: 20px"></md-radio-button>
+            <md-radio-button value="2" aria-label="terres + art&tur"><img src="img/terres-art-mini.png" style="height: 20px"></md-radio-button>
+          </md-radio-group>
+        </md-card-content>
+        <div class="md-actions" layout="row" layout-align="end">
+           <md-button class="md-fab" aria-label="afegir film" ng-click="addDoc()"><ng-md-icon icon="plus_one"></ng-md-icon></md-button>
+         </div>
+      </md-card>
+      <md-card>
+        <md-card-content>
+          <h2>Afegir film turístic</h2>
+          <md-input-container>
+            <label>Títol</label>
+            <input type="text" ng-model="film.titletour">
+          </md-input-container>
+          <md-radio-group ng-model="film.section">
+            <md-radio-button value="1" aria-label="terres"><img src="img/terres-mini.png" style="height: 20px"></md-radio-button>
+            <md-radio-button value="2" aria-label="terres + art&tur"><img src="img/terres-art-mini.png" style="height: 20px"></md-radio-button>
+          </md-radio-group>
+        </md-card-content>
+        <div class="md-actions" layout="row" layout-align="end">
+           <md-button class="md-fab" aria-label="afegir film" ng-click="addTour()"><ng-md-icon icon="plus_one"></ng-md-icon></md-button>
+         </div>
+      </md-card>
+      <md-card>
+        <md-card-content>
+          <h2>Afegir film corporatiu</h2>
+          <md-input-container>
+            <label>Títol</label>
+            <input type="text" ng-model="film.titlecorp">
+          </md-input-container>
+          <md-radio-group ng-model="film.section">
+            <md-radio-button value="1" aria-label="terres"><img src="img/terres-mini.png" style="height: 20px"></md-radio-button>
+            <md-radio-button value="2" aria-label="terres + art&tur"><img src="img/terres-art-mini.png" style="height: 20px"></md-radio-button>
+          </md-radio-group>
+        </md-card-content>
+        <div class="md-actions" layout="row" layout-align="end">
+           <md-button class="md-fab" aria-label="afegir film" ng-click="addCorp()"><ng-md-icon icon="plus_one"></ng-md-icon></md-button>
+         </div>
+      </md-card>
+    </div>
+  </form>
+</md-content>

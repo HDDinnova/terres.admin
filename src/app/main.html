@@ -1,3 +1,8 @@
+<div class="loader" layout="column" layout-padding layout-align="center center" ng-if="loading">
+  <h1>Espera mentre es carreguen les dades, pot trigar una estona</h1>
+  <h3>{{percentage}}%</h3>
+  <md-progress-linear md-mode="determinate" value="{{percentage}}" class="md-accent md-hue-1"></md-progress-linear>
+</div>
 <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
     <div ng-cloak>
         <md-toolbar class="md-tall">

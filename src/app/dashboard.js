@@ -2,9 +2,9 @@ angular
   .module('app')
   .controller('DashCtrl', Dashboard);
 
-Dashboard.$inject = ['$mdSidenav', '$scope', 'Competitors'];
+Dashboard.$inject = ['$mdSidenav', '$scope', 'Competitors', '$state', '$http'];
 
-function Dashboard($mdSidenav, $scope, Competitors) {
+function Dashboard($mdSidenav, $scope, Competitors, $state, $http) {
   /* jshint validthis: true */
   var vm = this;
 
@@ -13,4 +13,15 @@ function Dashboard($mdSidenav, $scope, Competitors) {
   };
 
   $scope.competitors = Competitors.query();
+  $scope.edit = function (a) {
+    $state.go('index.competitor', {id: a});
+  };
+
+  $scope.mail = function (id) {
+    var url = 'api/resend/' + id;
+    $http.post(url)
+    .then(function (data) {
+      alert(data.data);
+    });
+  };
 }

@@ -5,7 +5,8 @@ angular
 
 function Competitors($resource) {
   return $resource('api/', {}, {
-    query: {method: 'GET', isArray: true}
+    query: {method: 'GET', isArray: true},
+    insert: {method: 'POST'}
   });
 }
 
