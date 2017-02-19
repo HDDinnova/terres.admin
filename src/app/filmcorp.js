@@ -31,4 +31,17 @@ function Filmcorp($scope, $rootScope, $state, $stateParams, $http, Upload) {
       $rootScope.percentage = parseInt(100.0 * evt.loaded / evt.total, 10);
     });
   };
+
+  $scope.save = function () {
+    $http.post('api/modifycorpfilm/', $scope.film)
+    .then(function (resp) {
+      console.log(resp.data);
+      if (resp.data.status === 200) {
+        alert('Informació actualitzada amb èxit');
+        $state.reload();
+      } else {
+        alert('Hi ha hagut un error, contacta amb Jordi ;-)');
+      }
+    });
+  };
 }

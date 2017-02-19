@@ -18,29 +18,84 @@
       <label>Productor</label>
       <input type="text" ng-model="film.producer">
     </md-input-container>
+    <div layout-gt-sm="row" layout="column">
+      <fieldset>
+        <legend>Categories <small>màxim 3</small></legend>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'"  ng-model="film.travel" aria-label="travel" ng-change="checkChanged(film.travel)" ng-disabled="checked === max && film.travel === '0'">
+          Destinacions turístiques
+        </md-checkbox>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'"  ng-model="film.cultural" aria-label="cultural" ng-change="checkChanged(film.cultural)" ng-disabled="checked === max && film.cultural === '0'">
+          Paisatges culturals
+        </md-checkbox>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'"  ng-model="film.sports" aria-label="sports" ng-change="checkChanged(film.sports)" ng-disabled="checked === max && film.sports === '0'">
+          Esports i activitats a l'aire lliure
+        </md-checkbox>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'"  ng-model="film.expedition" aria-label="expedition" ng-change="checkChanged(film.expedition)" ng-disabled="checked === max && film.expedition === '0'">
+          Rutes, expedicions i viatges
+        </md-checkbox>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'"  ng-model="film.hotels" aria-label="hotels" ng-change="checkChanged(film.hotels)" ng-disabled="checked === max && film.hotels === '0'">
+          Hotels, Resorts & Spas
+        </md-checkbox>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'"  ng-model="film.events" aria-label="events" ng-change="checkChanged(film.events)" ng-disabled="checked === max && film.events === '0'">
+          Esdeveniments
+        </md-checkbox>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'"  ng-model="film.health" aria-label="health" ng-change="checkChanged(film.health))" ng-disabled="checked === max && film.health === '0'">
+          Turisme de salut i benestar
+        </md-checkbox>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'"  ng-model="film.rural" aria-label="rural" ng-change="checkChanged(film.rural)" ng-disabled="checked === max && film.rural === '0'">
+          Turisme rural
+        </md-checkbox>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'"  ng-model="film.naturaltour" aria-label="natural" ng-change="checkChanged(film.naturaltour)" ng-disabled="checked === max && film.naturaltour === '0'">
+          Turisme de natura
+        </md-checkbox>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'"  ng-model="film.enotourism" aria-label="Enotourism" ng-change="checkChanged(film.enotourism)" ng-disabled="checked === max && film.enotourism === '0'">
+          Experiències gastronòmiques, Enoturisme i Oleoturisme
+        </md-checkbox>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'"  ng-model="film.destinations" aria-label="Destinations" ng-change="checkChanged(film.destinations)" ng-disabled="checked === max && film.destinations === '0'">
+          Localització per a la promoció de filmacions cinematogràfiques
+        </md-checkbox>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'"  ng-model="film.animation" aria-label="Animation" ng-change="checkChanged(film.animation)" ng-disabled="checked === max && film.animation === '0'">
+          Animació
+        </md-checkbox>
+      </fieldset>
+    </div>
     <div layout="row">
       <md-card>
         <img class="md-card-image" ng-src="data:{{film.screenshot1Type}};base64,{{film.screenshot1}}" alt="screenshot" />
         <md-card-footer>
         Screenshot 1
         </md-card-footer>
+        <div class="md-actions" layout="row" layout-align="start">
+           <input type="file" ng-model="film.screenshot1" accept="image/jpeg,image/gif,image/png" base-sixty-four-input aria-label="Screenshot 1">
+         </div>
       </md-card>
       <md-card>
         <img class="md-card-image" ng-src="data:{{film.screenshot2Type}};base64,{{film.screenshot2}}" alt="screenshot" />
         <md-card-footer>
         Screenshot 2
         </md-card-footer>
+        <div class="md-actions" layout="row" layout-align="start">
+           <input type="file" ng-model="film.screenshot2" accept="image/jpeg,image/gif,image/png" base-sixty-four-input aria-label="Screenshot 2">
+         </div>
       </md-card>
       <md-card>
         <img class="md-card-image" ng-src="data:{{film.screenshot3Type}};base64,{{film.screenshot3}}" alt="screenshot" />
         <md-card-footer>
         Screenshot 3
         </md-card-footer>
+        <div class="md-actions" layout="row" layout-align="start">
+           <input type="file" ng-model="film.screenshot3" accept="image/jpeg,image/gif,image/png" base-sixty-four-input aria-label="Screenshot 3">
+         </div>
       </md-card>
     </div>
-    <div layout="row" layout-align="center" layout-fill>
-      <md-button ng-if="!film.film" class="md-fab md-primary" aria-label="upload film"  accept="video/*" ngf-select="upload($file)" ngf-max-size="999MB"><ng-md-icon icon="movie"></md-button>
-      <video style="width: 50%; height: 50%;" ng-if="film.film" ng-src="http://terres.info/intranet/film/{{film.film}}" controls></video>
-    </div>
+    <div class="md-actions" layout="row" layout-align="start">
+       <md-button class="md-mini md-primary" ng-click="save()" aria-label="guardar dades"><ng-md-icon icon="send"></ng-md-icon> Guardar dades</md-button>
+     </div>
   </form>
+</md-content>
+<md-content layout-padding>
+  <div layout="row" layout-align="center" layout-fill>
+    <md-button ng-if="!film.film" class="md-fab md-primary" aria-label="upload film"  accept="video/*" ngf-select="upload($file)" ngf-max-size="999MB"><ng-md-icon icon="movie"></md-button>
+    <video style="width: 50%; height: 50%;" ng-if="film.film" ng-src="http://terres.info/intranet/film/{{film.film}}" controls></video>
+  </div>
 </md-content>

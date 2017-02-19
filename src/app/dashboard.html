@@ -18,8 +18,8 @@
           <td md-cell ng-if="comp.factura === '1'">SI</td>
           <td md-cell ng-if="comp.factura === '0'">NO</td>
           <td md-cell>{{comp.numfactura}}</td>
-          <td md-cell><md-button class="md-mini" ng-click="edit(comp.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
-          <td md-cell><md-button class="md-mini" ng-click="mail(comp.id)" aria-label="reenviar mail"><ng-md-icon icon="mail_outline"></ng-md-icon></md-button></td>
+          <td md-cell><md-button class="md-mini md-accent" ng-click="edit(comp.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
+          <td md-cell><md-button class="md-mini md-primary" ng-click="mail(comp.id)" aria-label="reenviar mail"><ng-md-icon icon="mail_outline"></ng-md-icon></md-button></td>
         </tr>
       </tbody>
     </table>

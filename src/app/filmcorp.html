@@ -24,23 +24,37 @@
         <md-card-footer>
         Screenshot 1
         </md-card-footer>
+        <div class="md-actions" layout="row" layout-align="start">
+           <input type="file" ng-model="film.screenshot1" accept="image/jpeg,image/gif,image/png" base-sixty-four-input aria-label="Screenshot 1">
+         </div>
       </md-card>
       <md-card>
         <img class="md-card-image" ng-src="data:{{film.screenshot2Type}};base64,{{film.screenshot2}}" alt="screenshot" />
         <md-card-footer>
         Screenshot 2
         </md-card-footer>
+        <div class="md-actions" layout="row" layout-align="start">
+           <input type="file" ng-model="film.screenshot2" accept="image/jpeg,image/gif,image/png" base-sixty-four-input aria-label="Screenshot 2">
+         </div>
       </md-card>
       <md-card>
         <img class="md-card-image" ng-src="data:{{film.screenshot3Type}};base64,{{film.screenshot3}}" alt="screenshot" />
         <md-card-footer>
         Screenshot 3
         </md-card-footer>
+        <div class="md-actions" layout="row" layout-align="start">
+           <input type="file" ng-model="film.screenshot3" accept="image/jpeg,image/gif,image/png" base-sixty-four-input aria-label="Screenshot 3">
+         </div>
       </md-card>
     </div>
-    <div layout="row" layout-align="center" layout-fill>
-      <md-button ng-if="!film.film" class="md-fab md-primary" aria-label="upload film"  accept="video/*" ngf-select="upload($file)" ngf-max-size="999MB"><ng-md-icon icon="movie"></md-button>
-      <video style="width: 50%; height: 50%;" ng-if="film.film" ng-src="http://terres.info/intranet/film/{{film.film}}" controls></video>
-    </div>
+    <div class="md-actions" layout="row" layout-align="start">
+       <md-button class="md-mini md-primary" ng-click="save()" aria-label="guardar dades"><ng-md-icon icon="send"></ng-md-icon> Guardar dades</md-button>
+     </div>
   </form>
+</md-content>
+<md-content layout-padding>
+  <div layout="row" layout-align="center" layout-fill>
+    <md-button ng-if="!film.film" class="md-fab md-primary" aria-label="upload film"  accept="video/*" ngf-select="upload($file)" ngf-max-size="999MB"><ng-md-icon icon="movie"></md-button>
+    <video style="width: 50%; height: 50%;" ng-if="film.film" ng-src="http://terres.info/intranet/film/{{film.film}}" controls></video>
+  </div>
 </md-content>

@@ -24,6 +24,12 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'TerresCtrl',
       controllerAs: 'terres'
     })
+    .state('index.addterreslab', {
+      url: '',
+      templateUrl: 'app/addterreslab.html',
+      controller: 'AddLabCtrl',
+      controllerAs: 'AddLab'
+    })
     .state('index.addcompetitor', {
       url: '',
       templateUrl: 'app/insert.html',

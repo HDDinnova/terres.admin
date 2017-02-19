@@ -94,6 +94,15 @@ function Competitor($scope, $state, $stateParams, $http) {
   };
 
   $scope.saveComp = function () {
-    console.log($scope.user);
+    $http.post('api/modifyuser/', $scope.user)
+    .then(function (resp) {
+      console.log(resp.data);
+      if (resp.data.status === 200) {
+        alert('Informació actualitzada amb èxit');
+        $state.reload();
+      } else {
+        alert('Hi ha hagut un error, contacta amb Jordi ;-)');
+      }
+    });
   };
 }

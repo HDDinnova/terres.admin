@@ -147,6 +147,116 @@ Flight::map('htmlmail', function($name,$email,$password){
 });
 
 ///////
+// terres LAB mail
+///////
+Flight::map('terreslabmail', function($email){
+
+  $subject = "terres LAB register confirmation";
+
+  $htmlContent = '
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml" style="height: 100% !important; width: 100% !important; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; margin: 0 auto; padding: 0;">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="x-apple-disable-message-reformatting" />
+  </head>
+  <body width="100%" bgcolor="#FFFFFF" style="height: 100% !important; width: 100% !important; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; margin: 0 auto; padding: 0;">
+    <style type="text/css">
+      .button-td:hover { background: #555555 !important; border-color: #555555 !important; }
+      .button-a:hover { background: #555555 !important; border-color: #555555 !important; }
+    </style>
+    <center style="width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: #FFFFFF;">
+      <div style="max-width: 680px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; margin: auto;">
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 680px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; border-spacing: 0 !important; border-collapse: collapse !important; table-layout: fixed !important; margin: 0 auto;">
+        <tr style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+          <td style="text-align: center; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; padding: 20px 0;" align="center">
+            <img src="http://terres.info/img/terresLAB.png" width="200px" alt="Logo terres" border="0" style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -ms-interpolation-mode: bicubic;" />
+          </td>
+        </tr>
+      </table>
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 680px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; border-spacing: 0 !important; border-collapse: collapse !important; table-layout: fixed !important; margin: 0 auto;">
+        <tr style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+          <td bgcolor="#ffffff" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important;">
+            <img src="http://terres.info/img/tortosanocturn.jpg" width="680" height="" alt="Foto Tortosa" border="0" align="center" style="width: 100% !important; max-width: 100% !important; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -ms-interpolation-mode: bicubic; height: auto !important; margin-left: auto !important; margin-right: auto !important; background-color: #dddddd;" />
+          </td>
+        </tr>
+        <tr style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+          <td bgcolor="#ffffff" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; border-spacing: 0 !important; border-collapse: collapse !important; table-layout: fixed !important; margin: 0 auto;">
+              <tr style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+                <td style="text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; color: #555555; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; padding: 40px;" align="center">
+                  <h2>Gràcies per inscriure’t a terres LAB, Congrés sobre Paisatge, Turisme i Cinema.</h2>
+                  <h2>Thanks for registering to terres LAB, Congress on Landscape, Tourism and Cinema.</h2>
+                  <h2>Gracias por inscribirte en terres LAB, Congreso sobre Paisaje, Turismo y Cine.</h2>
+                </td>
+              </tr>
+              <tr style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+                <td style="text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; padding: 40px;" align="center">
+                  <h3>Estem elaborant el programa de terres LAB. En breu, rebràs un correu electrònic amb el programa.</h3>
+                  <h3>We are competing the program of terres LAB. Soon, you will receive an e-mail with the program.</h3>
+                  <h3>Estamos elaborando el programa de terres LAB. En breve, recibirás un correo electrónico con el programa.</h3>
+                </td>
+              </tr>
+              <tr style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+                <td style="text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; padding: 40px;" align="center">
+                  <h4>Vols allotjar-te a l’hotel on tindrà lloc terres LAB beneficiant-te d’una oferta especial del nostre partner?</h4>
+                  <h4>Do you want to book a room in the hotel where terres LAB will take place? Benefit of our partner’s discount code!</h4>
+                  <h4>¿Quieres alojarte en el hotel donde tendrá lugar terres LAB beneficiándote de una oferta especial de nuestro partner?</h4>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+          <td bgcolor="#ffffff" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important;">
+            <table width="100%" style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; margin: 0 auto;">
+              <tr>
+                <td style="text-align: center; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; padding: 20px 0;" align="center">
+                  <a href="http://www.hotelcoronatortosa.com/bookingstep1/?idtokenprovider=100034427&lang=es&checkin=29%2F05%2F2017&nights=1&show_calendar=true&hsri=02040&bookinghost=&home=http%3A%2F%2Fwww.hotelcoronatortosa.com%2F&bookingpage=&clientCode=TERRESCAT&roomTypeId=&securepage=&maxNights=32&step=1#url=true" target="_blank"><img src="http://terres.info/img/patr_sbhotels.jpg" width="400px" alt="Logo terres" border="0" /></a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 680px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; border-spacing: 0 !important; border-collapse: collapse !important; table-layout: fixed !important; margin: 0 auto;">
+        <tr style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+          <td style="width: 100%; font-size: 14px; font-family: sans-serif; mso-height-rule: exactly; line-height: 18px; text-align: center; color: #888888; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; padding: 40px 10px;" align="center">
+            <p>Thank you so much! / Moltes gràcies / ¡Muchas gracias!</p>
+          </td>
+        </tr>
+      </table>
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 680px; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; border-spacing: 0 !important; border-collapse: collapse !important; table-layout: fixed !important; margin: 0 auto;">
+        <tr style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+          <td style="width: 100%; font-size: 12px; font-family: sans-serif; mso-height-rule: exactly; line-height: 18px; text-align: center; color: #888888; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; padding: 40px 10px;" align="center">
+            FILMS NÒMADES GS, SL<br style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" /><span style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">Carrer Jaume I 44 entresòl 2a, 43870 Amposta, Tarragona, Spain</span><br style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" /><span style="-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">977 70 20 74</span>
+          </td>
+        </tr>
+      </table>
+      </div>
+    </center>
+  </body>
+  </html>';
+
+  // Set content-type header for sending HTML email
+  $headers = "MIME-Version: 1.0" . "\r\n";
+  $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+  // Additional headers
+  $headers .= 'From: terres International Film Festival <info@terres.info>' . "\r\n";
+
+  // Send email
+  if(mail($email,$subject,$htmlContent,$headers)):
+    echo 'emailOK';
+  else:
+    echo 'emailKO';
+  endif;
+});
+
+///////
 // List all competitors
 ///////
 Flight::route('GET /', function(){
@@ -465,7 +575,7 @@ Flight::route('POST /addfilm/@table/@id', function($table, $id) {
 });
 
 ///////
-// Edit user fields
+// Edit user payment fields
 ///////
 Flight::route('POST /saveuser', function() {
   $data = file_get_contents('php://input');
@@ -489,6 +599,279 @@ Flight::route('POST /saveuser', function() {
 
   $db = NULL;
 });
+
+///////
+// Edit user fields
+///////
+Flight::route('POST /modifyuser', function() {
+  $data = file_get_contents('php://input');
+  $data = json_decode($data, true);
+
+  print_r($data);
+
+  $db = Flight::db();
+
+  $sql = "UPDATE competitors SET fullName=:fullName, comName=:comName, vat=:vat, address=:address, zip=:zip, country=:country, phone=:phone, email=:email, website=:website, facebook=:facebook WHERE id=:id";
+  $query = $db->prepare($sql);
+  $query->bindParam(':fullName', $data['fullName']);
+  $query->bindParam(':comName', $data['comName']);
+  $query->bindParam(':vat', $data['vat']);
+  $query->bindParam(':address', $data['address']);
+  $query->bindParam(':zip', $data['zip']);
+  $query->bindParam(':country', $data['country']);
+  $query->bindParam(':phone', $data['phone']);
+  $query->bindParam(':email', $data['email']);
+  $query->bindParam(':website', $data['website']);
+  $query->bindParam(':facebook', $data['facebook']);
+  $query->bindParam(':id', $data['id']);
+  if ($query->execute()) {
+    $response['status'] = 200;
+  } else {
+    $response['status'] = 500;
+  }
+
+  Flight::json($response);
+
+  $db = NULL;
+});
+
+///////
+// Edit tourism film fields
+///////
+Flight::route('POST /modifytourfilm', function() {
+  $data = file_get_contents('php://input');
+  $data = json_decode($data, true);
+
+  print_r($data);
+
+  $db = Flight::db();
+
+  $sql = "UPDATE tourismfilms SET ";
+  $sql = $sql."title=:title,";
+  $sql = $sql."synopsi=:synopsi,";
+  $sql = $sql."director=:director,";
+  $sql = $sql."producer=:producer,";
+  if (isset($data['screenshot1']['base64'])) {
+    $sql = $sql."screenshot1=:screenshot1,";
+    $sql = $sql."screenshot1Type=:screenshot1Type,";
+  }
+  if (isset($data['screenshot2']['base64'])) {
+    $sql = $sql."screenshot2=:screenshot2,";
+    $sql = $sql."screenshot2Type=:screenshot2Type,";
+  }
+  if (isset($data['screenshot3']['base64'])) {
+    $sql = $sql."screenshot3=:screenshot3,";
+    $sql = $sql."screenshot3Type=:screenshot3Type,";
+  }
+  $sql = $sql."travel=:travel,";
+  $sql = $sql."cultural=:cultural,";
+  $sql = $sql."sports=:sports,";
+  $sql = $sql."expedition=:expedition,";
+  $sql = $sql."hotels=:hotels,";
+  $sql = $sql."events=:events,";
+  $sql = $sql."health=:health,";
+  $sql = $sql."rural=:rural,";
+  $sql = $sql."naturaltour=:naturaltour,";
+  $sql = $sql."enotourism=:enotourism,";
+  $sql = $sql."destinations=:destinations,";
+  $sql = $sql."animation=:animation";
+  $sql = $sql." WHERE id=:id";
+  $query = $db->prepare($sql);
+  $query->bindParam(':title', $data['title']);
+  $query->bindParam(':synopsi', $data['synopsi']);
+  $query->bindParam(':director', $data['director']);
+  $query->bindParam(':producer', $data['producer']);
+  if (isset($data['screenshot1']['base64'])) {
+    $query->bindParam(':screenshot1', $data['screenshot1']['base64']);
+    $query->bindParam(':screenshot1Type', $data['screenshot1']['filetype']);
+  }
+  if (isset($data['screenshot2']['base64'])) {
+    $query->bindParam(':screenshot2', $data['screenshot2']['base64']);
+    $query->bindParam(':screenshot2Type', $data['screenshot2']['filetype']);
+  }
+  if (isset($data['screenshot3']['base64'])) {
+    $query->bindParam(':screenshot3', $data['screenshot3']['base64']);
+    $query->bindParam(':screenshot3Type', $data['screenshot3']['filetype']);
+  }
+  $query->bindParam(':travel', $data['travel']);
+  $query->bindParam(':cultural', $data['cultural']);
+  $query->bindParam(':sports', $data['sports']);
+  $query->bindParam(':expedition', $data['expedition']);
+  $query->bindParam(':hotels', $data['hotels']);
+  $query->bindParam(':events', $data['events']);
+  $query->bindParam(':health', $data['health']);
+  $query->bindParam(':rural', $data['rural']);
+  $query->bindParam(':naturaltour', $data['naturaltour']);
+  $query->bindParam(':enotourism', $data['enotourism']);
+  $query->bindParam(':destinations', $data['destinations']);
+  $query->bindParam(':animation', $data['animation']);
+  $query->bindParam(':id', $data['id']);
+  if ($query->execute()) {
+    $response['status'] = 200;
+  } else {
+    $response['status'] = 500;
+  }
+
+  Flight::json($response);
+
+  $db = NULL;
+});
+
+///////
+// Edit documentary film fields
+///////
+Flight::route('POST /modifydocfilm', function() {
+  $data = file_get_contents('php://input');
+  $data = json_decode($data, true);
+
+  print_r($data);
+
+  $db = Flight::db();
+
+  $sql = "UPDATE documentaryfilms SET ";
+  $sql = $sql."title=:title,";
+  $sql = $sql."synopsi=:synopsi,";
+  $sql = $sql."director=:director,";
+  $sql = $sql."producer=:producer,";
+  if (isset($data['screenshot1']['base64'])) {
+    $sql = $sql."screenshot1=:screenshot1,";
+    $sql = $sql."screenshot1Type=:screenshot1Type,";
+  }
+  if (isset($data['screenshot2']['base64'])) {
+    $sql = $sql."screenshot2=:screenshot2,";
+    $sql = $sql."screenshot2Type=:screenshot2Type,";
+  }
+  if (isset($data['screenshot3']['base64'])) {
+    $sql = $sql."screenshot3=:screenshot3,";
+    $sql = $sql."screenshot3Type=:screenshot3Type,";
+  }
+  $sql = rtrim($sql, ',');
+  $sql = $sql." WHERE id=:id";
+  $query = $db->prepare($sql);
+  $query->bindParam(':title', $data['title']);
+  $query->bindParam(':synopsi', $data['synopsi']);
+  $query->bindParam(':director', $data['director']);
+  $query->bindParam(':producer', $data['producer']);
+  if (isset($data['screenshot1']['base64'])) {
+    $query->bindParam(':screenshot1', $data['screenshot1']['base64']);
+    $query->bindParam(':screenshot1Type', $data['screenshot1']['filetype']);
+  }
+  if (isset($data['screenshot2']['base64'])) {
+    $query->bindParam(':screenshot2', $data['screenshot2']['base64']);
+    $query->bindParam(':screenshot2Type', $data['screenshot2']['filetype']);
+  }
+  if (isset($data['screenshot3']['base64'])) {
+    $query->bindParam(':screenshot3', $data['screenshot3']['base64']);
+    $query->bindParam(':screenshot3Type', $data['screenshot3']['filetype']);
+  }
+  $query->bindParam(':id', $data['id']);
+  if ($query->execute()) {
+    $response['status'] = 200;
+  } else {
+    $response['status'] = 500;
+  }
+
+  Flight::json($response);
+
+  $db = NULL;
+});
+
+///////
+// Edit corporate film fields
+///////
+Flight::route('POST /modifycorpfilm', function() {
+  $data = file_get_contents('php://input');
+  $data = json_decode($data, true);
+
+  print_r($data);
+
+  $db = Flight::db();
+
+  $sql = "UPDATE corporatefilms SET ";
+  $sql = $sql."title=:title,";
+  $sql = $sql."synopsi=:synopsi,";
+  $sql = $sql."director=:director,";
+  $sql = $sql."producer=:producer,";
+  if (isset($data['screenshot1']['base64'])) {
+    $sql = $sql."screenshot1=:screenshot1,";
+    $sql = $sql."screenshot1Type=:screenshot1Type,";
+  }
+  if (isset($data['screenshot2']['base64'])) {
+    $sql = $sql."screenshot2=:screenshot2,";
+    $sql = $sql."screenshot2Type=:screenshot2Type,";
+  }
+  if (isset($data['screenshot3']['base64'])) {
+    $sql = $sql."screenshot3=:screenshot3,";
+    $sql = $sql."screenshot3Type=:screenshot3Type,";
+  }
+  $sql = rtrim($sql, ',');
+  $sql = $sql." WHERE id=:id";
+  $query = $db->prepare($sql);
+  $query->bindParam(':title', $data['title']);
+  $query->bindParam(':synopsi', $data['synopsi']);
+  $query->bindParam(':director', $data['director']);
+  $query->bindParam(':producer', $data['producer']);
+  if (isset($data['screenshot1']['base64'])) {
+    $query->bindParam(':screenshot1', $data['screenshot1']['base64']);
+    $query->bindParam(':screenshot1Type', $data['screenshot1']['filetype']);
+  }
+  if (isset($data['screenshot2']['base64'])) {
+    $query->bindParam(':screenshot2', $data['screenshot2']['base64']);
+    $query->bindParam(':screenshot2Type', $data['screenshot2']['filetype']);
+  }
+  if (isset($data['screenshot3']['base64'])) {
+    $query->bindParam(':screenshot3', $data['screenshot3']['base64']);
+    $query->bindParam(':screenshot3Type', $data['screenshot3']['filetype']);
+  }
+  $query->bindParam(':id', $data['id']);
+  if ($query->execute()) {
+    $response['status'] = 200;
+  } else {
+    $response['status'] = 500;
+  }
+
+  Flight::json($response);
+
+  $db = NULL;
+});
+
+///////
+// Register to terres LAB
+///////
+Flight::route('/addterreslab', function(){
+    $db = Flight::db();
+    $data = [];
+
+    $dades = file_get_contents('php://input');
+    $dades = mb_convert_encoding($dades, 'HTML-ENTITIES', "UTF-8");
+
+    $post = json_decode($dades,true);
+
+    $sql = "INSERT INTO terreslab(nom, cognoms, email, direccio, ciutat, pais, categoria) VALUES (:nom, :cognoms, :email, :direccio, :ciutat, :pais, :categoria)";
+
+    $new = $db->prepare($sql);
+    $new->bindParam(':nom', $post['nom']);
+    $new->bindParam(':cognoms', $post['cognoms']);
+    $new->bindParam(':email', $post['email']);
+    $new->bindParam(':direccio', $post['direccio']);
+    $new->bindParam(':ciutat', $post['city']);
+    $new->bindParam(':pais', $post['country']);
+    $new->bindParam(':categoria', $post['categoria']);
+
+    if ($new->execute()) {
+      $data['status'] = 200;
+      $data['message'] = $post;
+      $mail = Flight::terreslabmail($post['email']);
+    } else {
+      $data['status'] = 400;
+      $data['message'] = 'Unknown error';
+    }
+
+    $db = NULL;
+
+    Flight::json($data);
+});
+
 
 Flight::route('/testupload', function() {
   phpinfo();
