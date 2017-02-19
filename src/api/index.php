@@ -397,7 +397,7 @@ Flight::route('POST /', function(){
 Flight::route('GET /terreslab', function(){
   $db = Flight::db();
 
-  $sql = "SELECT nom,cognoms,email,ciutat,pais,categoria FROM terreslab";
+  $sql = "SELECT id,nom,cognoms,email,ciutat,pais,categoria FROM terreslab";
   $comp = $db->prepare($sql);
   $comp->execute();
   $comps = [];
@@ -408,6 +408,23 @@ Flight::route('GET /terreslab', function(){
   $db = NULL;
 
   Flight::json($comps);
+});
+
+///////
+// List selected member registered to terres LAB
+///////
+Flight::route('GET /terreslab/@id', function($id){
+  $db = Flight::db();
+
+  $sql = "SELECT * FROM terreslab WHERE id = :id";
+  $comp = $db->prepare($sql);
+  $comp->bindParam(':id', $id);
+  $comp->execute();
+  $c = $comp->fetch(PDO::FETCH_ASSOC);
+
+  $db = NULL;
+
+  Flight::json($c);
 });
 
 ///////
@@ -623,6 +640,39 @@ Flight::route('POST /modifyuser', function() {
   $query->bindParam(':email', $data['email']);
   $query->bindParam(':website', $data['website']);
   $query->bindParam(':facebook', $data['facebook']);
+  $query->bindParam(':id', $data['id']);
+  if ($query->execute()) {
+    $response['status'] = 200;
+  } else {
+    $response['status'] = 500;
+  }
+
+  Flight::json($response);
+
+  $db = NULL;
+});
+
+///////
+// Edit user fields
+///////
+Flight::route('POST /modifyassistent', function() {
+  $data = file_get_contents('php://input');
+  $data = json_decode($data, true);
+
+  print_r($data);
+
+  $db = Flight::db();
+
+  $sql = "UPDATE terreslab SET nom=:nom, cognoms=:cognoms, email=:email, direccio=:direccio, ciutat=:ciutat, pais=:pais, categoria=:categoria, institucio=:institucio WHERE id=:id";
+  $query = $db->prepare($sql);
+  $query->bindParam(':nom', $data['nom']);
+  $query->bindParam(':cognoms', $data['cognoms']);
+  $query->bindParam(':email', $data['email']);
+  $query->bindParam(':direccio', $data['direccio']);
+  $query->bindParam(':ciutat', $data['ciutat']);
+  $query->bindParam(':pais', $data['pais']);
+  $query->bindParam(':categoria', $data['categoria']);
+  $query->bindParam(':institucio', $data['institucio']);
   $query->bindParam(':id', $data['id']);
   if ($query->execute()) {
     $response['status'] = 200;

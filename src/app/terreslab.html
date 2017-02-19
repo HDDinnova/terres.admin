@@ -8,15 +8,17 @@
         <th md-column><span>Ciutat</span></th>
         <th md-column><span>País</span></th>
         <th md-column><span>Categoria</span></th>
+        <th md-column><span>Editar</span></th>
       </thead>
       <tbody md-body>
         <tr ng-repeat="t in assistents">
           <td md-cell ng-bind-html="t.nom"></td>
           <td md-cell ng-bind-html="t.cognoms"></td>
           <td md-cell>{{t.email}}</td>
-          <td md-cell>{{t.ciutat}}</td>
+          <td md-cell ng-bind-html="t.ciutat"></td>
           <td md-cell>{{t.pais}}</td>
           <td md-cell>{{t.categoria}}</td>
+          <td md-cell><md-button class="md-mini md-accent" ng-click="edit(t.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
         </tr>
       </tbody>
     </table>

@@ -30,6 +30,14 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'AddLabCtrl',
       controllerAs: 'AddLab'
     })
+    .state('index.labassistent', {
+      url: '',
+      params: {
+        id: null
+      },
+      templateUrl: 'app/labassistent.html',
+      controller: 'LabassistCtrl'
+    })
     .state('index.addcompetitor', {
       url: '',
       templateUrl: 'app/insert.html',

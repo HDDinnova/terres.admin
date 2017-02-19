@@ -2,14 +2,11 @@ angular
   .module('app')
   .controller('TerresCtrl', Terres);
 
-Terres.$inject = ['$mdSidenav', '$scope', 'Assistents'];
+Terres.$inject = ['$scope', 'Assistents', '$state'];
 
-function Terres($mdSidenav, $scope, Assistents) {
-  /* jshint validthis: true */
-  var vm = this;
-
-  vm.toggleSidenav = function (menuId) {
-    $mdSidenav(menuId).toggle();
+function Terres($scope, Assistents, $state) {
+  $scope.edit = function (id) {
+      $state.go('index.labassistent', {id: id});
   };
 
   $scope.assistents = Assistents.query();

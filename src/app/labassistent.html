@@ -1,0 +1,56 @@
+<md-content>
+  <form id="form_user">
+    <md-card>
+      <md-card-content>
+        <h2>Dades de l'assistent</h2>
+        <md-input-container>
+          <label>Nom</label>
+          <input type="text" ng-model="user.nom">
+        </md-input-container>
+        <md-input-container>
+          <label>Cognoms</label>
+          <input type="text" ng-model="user.cognoms">
+        </md-input-container>
+        <md-input-container>
+          <label>Correu electrònic</label>
+          <input type="text" ng-model="user.email">
+        </md-input-container>
+        <md-input-container>
+          <label>Adreça</label>
+          <input type="text" ng-model="user.direccio">
+        </md-input-container>
+        <md-input-container>
+          <label>Ciutat</label>
+          <input type="text" ng-model="user.ciutat">
+        </md-input-container>
+        <md-input-container>
+          <label>País</label>
+          <input type="text" ng-model="user.pais">
+        </md-input-container>
+        <md-input-container>
+          <label for="categoria">Categoria</label>
+          <md-select ng-model="user.categoria" required="true">
+            <md-option value="estudiant">Estudiant</md-option>
+            <md-option value="investigador">Investigador</md-option>
+            <md-option value="professional">Professional</md-option>
+            <md-option value="periodista">Periodista</md-option>
+            <md-option value="concursant">Concursant</md-option>
+            <md-option value="acompanyant">Acompanyant concursant</md-option>
+            <md-option value="partners">Partner</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Institució</label>
+          <input type="text" ng-model="user.institucio">
+        </md-input-container>
+        <md-input-container>
+          <label>Justificant</label>
+          <input type="text" ng-model="user.justificant">
+        </md-input-container>
+      </md-card-content>
+      <div class="md-actions" layout="row" layout-align="start">
+         <md-button class="md-mini md-warn" ng-click="saveComp()" aria-label="guardar dades"><ng-md-icon icon="send"></ng-md-icon> Guardar assistent</md-button>
+       </div>
+    </md-card>
+  </form>
+</md-content>
