@@ -8,10 +8,23 @@ function Competitor($scope, $state, $stateParams, $http) {
   var url = 'api/competitor/' + $stateParams.id;
   $scope.user = [];
   $scope.film = {};
+  $scope.addfilm = {};
 
   $http.get(url)
   .then(function (data) {
     $scope.user = data.data;
+    $scope.diftour = $scope.user.tourism.nfilms - Object.keys($scope.user.tourism.title).length;
+    $scope.difcorp = $scope.user.corporate.nfilms - Object.keys($scope.user.corporate.title).length;
+    $scope.difdoc = $scope.user.documentary.nfilms - Object.keys($scope.user.documentary.title).length;
+    if (isNaN($scope.diftour)) {
+      $scope.diftour = 0;
+    }
+    if (isNaN($scope.difcorp)) {
+      $scope.difcorp = 0;
+    }
+    if (isNaN($scope.difdoc)) {
+      $scope.difdoc = 0;
+    }
   });
 
   $scope.filmdoc = function (id) {
@@ -25,7 +38,7 @@ function Competitor($scope, $state, $stateParams, $http) {
   };
 
   $scope.addDoc = function () {
-    var url = 'api/addfilm/documentary/' + $scope.user.id;
+    var url = 'api/addfilm/documentary/' + $scope.user.id + '/false';
     if (angular.isUndefined($scope.film.titledoc)) {
       alert('Escriu un títol de película');
     } else {
@@ -42,7 +55,7 @@ function Competitor($scope, $state, $stateParams, $http) {
   };
 
   $scope.addTour = function () {
-    var url = 'api/addfilm/tourism/' + $scope.user.id;
+    var url = 'api/addfilm/tourism/' + $scope.user.id + '/false';
     if (angular.isUndefined($scope.film.titletour)) {
       alert('Escriu un títol de película');
     } else {
@@ -59,7 +72,7 @@ function Competitor($scope, $state, $stateParams, $http) {
   };
 
   $scope.addCorp = function () {
-    var url = 'api/addfilm/corporate/' + $scope.user.id;
+    var url = 'api/addfilm/corporate/' + $scope.user.id + '/false';
     if (angular.isUndefined($scope.film.titlecorp)) {
       alert('Escriu un títol de película');
     } else {
@@ -104,5 +117,59 @@ function Competitor($scope, $state, $stateParams, $http) {
         alert('Hi ha hagut un error, contacta amb Jordi ;-)');
       }
     });
+  };
+
+  $scope.addfilmtour = function () {
+    var url = 'api/addfilm/tourism/' + $scope.user.id + '/true';
+    console.log(url);
+    if (angular.isUndefined($scope.addfilm.titletour)) {
+      alert('Escriu un títol de película');
+    } else {
+      if (angular.isUndefined($scope.addfilm.section)) {
+        $scope.addfilm.section = '1';
+      }
+      $http.post(url, $scope.addfilm)
+      .then(function (data) {
+        if (data.status === 200) {
+          $state.reload();
+        }
+      });
+    }
+  };
+
+  $scope.addfilmdoc = function () {
+    var url = 'api/addfilm/documentary/' + $scope.user.id + '/true';
+    console.log(url);
+    if (angular.isUndefined($scope.addfilm.titledoc)) {
+      alert('Escriu un títol de película');
+    } else {
+      if (angular.isUndefined($scope.addfilm.section)) {
+        $scope.addfilm.section = '1';
+      }
+      $http.post(url, $scope.addfilm)
+      .then(function (data) {
+        if (data.status === 200) {
+          $state.reload();
+        }
+      });
+    }
+  };
+
+  $scope.addfilmcorp = function () {
+    var url = 'api/addfilm/corporate/' + $scope.user.id + '/true';
+    console.log(url);
+    if (angular.isUndefined($scope.addfilm.titlecorp)) {
+      alert('Escriu un títol de película');
+    } else {
+      if (angular.isUndefined($scope.addfilm.section)) {
+        $scope.addfilm.section = '1';
+      }
+      $http.post(url, $scope.addfilm)
+      .then(function (data) {
+        if (data.status === 200) {
+          $state.reload();
+        }
+      });
+    }
   };
 }

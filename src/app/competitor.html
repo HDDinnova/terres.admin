@@ -1,5 +1,12 @@
 <md-content>
   <form id="form_user">
+
+    <!--
+
+     Formulari de dades del consursant
+
+    -->
+
     <md-card>
       <md-card-content>
         <h2>Informació administrativa</h2>
@@ -56,6 +63,13 @@
          <md-button class="md-mini md-warn" ng-click="saveComp()" aria-label="guardar dades"><ng-md-icon icon="send"></ng-md-icon> Guardar usuari</md-button>
        </div>
     </md-card>
+
+      <!--
+
+       Formulari dades de facturació
+
+      -->
+
     <md-card>
       <md-card-content>
         <h2>Administració</h2>
@@ -82,19 +96,59 @@
          <md-button class="md-mini md-warn" ng-click="save()" aria-label="veure fitxa"><ng-md-icon icon="send"></ng-md-icon> Guardar dades de pagament</md-button>
        </div>
     </md-card>
+
+      <!--
+
+       Formulari de gestió dels films
+
+      -->
+
     <md-card ng-if="user.documentary.nfilms">
+
+      <!--
+
+       Dcumentals
+
+      -->
+
       <md-card-content>
         <h2>Documentals - {{user.documentary.nfilms}}</h2>
         <md-table-container>
           <table md-table>
             <thead md-head>
               <th md-column>Títol</th>
+              <th md-column>Secció</th>
               <th md-column>Editar</th>
             </thead>
             <tbody md-body>
-              <tr md-select="comp" md-autoselect ng-repeat="t in user.documentary.title">
-                <td md-cell>{{t.title}}</td>
+              <tr ng-repeat="t in user.documentary.title">
+                <td md-cell ng-bind-html="t.title"></td>
+                <td md-cell ng-if="t.section == 1"><img src="img\terres-mini.png" style="height: 30px"></td>
+                <td md-cell ng-if="t.section == 2"><img src="img\terres-art-mini.png" style="height: 30px"></td>
                 <td md-cell><md-button class="md-mini md-warn" ng-click="filmdoc(t.id)" aria-label="veure fitxa"><ng-md-icon icon="mode_edit"></ng-md-icon></md-button></td>
+              </tr>
+
+                <!--
+
+                 Afegir documentals si no ho ha fet l'usuari
+
+                -->
+
+              <tr ng-if="difdoc > 0">
+                <td md-cell>
+                  <md-input-container>
+                    <label>Títol del film</label>
+                    <input type="text" ng-model="addfilm.titledoc" aria-label="Afegir film">
+                  </md-input-container>
+                </td>
+                <td md-cell>
+                  <img src="img/terres-mini.png" alt="terres"  style="height: 20px" />
+                  <md-input-container>
+                    <md-switch ng-model="addfilm.section" aria-label="select section" ng-value="false"></md-switch>
+                  </md-input-container>
+                  <img src="img/terres-art-mini.png" alt="terres + art&tur"  style="height: 20px" />
+                </td>
+                <td md-cell><md-button class="md-mini" ng-click="addfilmdoc()" aria-label="afegir film"><ng-md-icon icon="save"></ng-md-icon></md-button></td>
               </tr>
             </tbody>
           </table>
@@ -102,18 +156,51 @@
       </md-card-content>
     </md-card>
     <md-card ng-if="user.tourism.nfilms">
+
+      <!--
+
+       Turístics
+
+      -->
+
       <md-card-content>
         <h2>Films turístics - {{user.tourism.nfilms || 0}}</h2>
         <md-table-container>
           <table md-table>
             <thead md-head>
               <th md-column>Títol</th>
+              <th md-column>Secció</th>
               <th md-column>Editar</th>
             </thead>
             <tbody md-body>
-              <tr md-select="comp" md-autoselect ng-repeat="t in user.tourism.title">
-                <td md-cell>{{t.title}}</td>
+              <tr ng-repeat="t in user.tourism.title">
+                <td md-cell ng-bind-html="t.title"></td>
+                <td md-cell ng-if="t.section == 1"><img src="img\terres-mini.png" style="height: 30px"></td>
+                <td md-cell ng-if="t.section == 2"><img src="img\terres-art-mini.png" style="height: 30px"></td>
                 <td md-cell><md-button class="md-mini" ng-click="filmtour(t.id)" aria-label="veure fitxa"><ng-md-icon icon="mode_edit"></ng-md-icon></md-button></td>
+              </tr>
+
+                <!--
+
+                 Afegir turístics si l'usuari no ho ha fet
+
+                -->
+
+              <tr ng-if="diftour > 0">
+                <td md-cell>
+                  <md-input-container>
+                    <label>Títol del film</label>
+                    <input type="text" ng-model="addfilm.titletour" aria-label="Afegir film">
+                  </md-input-container>
+                </td>
+                <td md-cell>
+                  <img src="img/terres-mini.png" alt="terres"  style="height: 20px" />
+                  <md-input-container>
+                    <md-switch ng-model="addfilm.section" aria-label="select section" ng-value="false"></md-switch>
+                  </md-input-container>
+                  <img src="img/terres-art-mini.png" alt="terres + art&tur"  style="height: 20px" />
+                </td>
+                <td md-cell><md-button class="md-mini" ng-click="addfilmtour()" aria-label="afegir film"><ng-md-icon icon="save"></ng-md-icon></md-button></td>
               </tr>
             </tbody>
           </table>
@@ -121,18 +208,51 @@
       </md-card-content>
     </md-card>
     <md-card ng-if="user.corporate.nfilms">
+
+      <!--
+
+       Corporatius
+
+      -->
+
       <md-card-content>
         <h2>Films Corporatius - {{user.corporate.nfilms || 0}}</h2>
         <md-table-container>
           <table md-table>
             <thead md-head>
               <th md-column>Títol</th>
+              <th md-column>Secció</th>
               <th md-column>Editar</th>
             </thead>
             <tbody md-body>
-              <tr md-select="comp" md-autoselect ng-repeat="t in user.corporate.title">
-                <td md-cell>{{t.title}}</td>
+              <tr ng-repeat="t in user.corporate.title">
+                <td md-cell ng-bind-html="t.title"></td>
+                <td md-cell ng-if="t.section == 1"><img src="img\terres-mini.png" style="height: 30px"></td>
+                <td md-cell ng-if="t.section == 2"><img src="img\terres-art-mini.png" style="height: 30px"></td>
                 <td md-cell><md-button class="md-mini" ng-click="filmcorp(t.id)" aria-label="veure fitxa"><ng-md-icon icon="mode_edit"></ng-md-icon></md-button></td>
+              </tr>
+
+                <!--
+
+                 Afegir corporatius si l'usuari no ho ha fet
+
+                -->
+
+              <tr ng-if="difcorp > 0">
+                <td md-cell>
+                  <md-input-container>
+                    <label>Títol del film</label>
+                    <input type="text" ng-model="addfilm.titlecorp" aria-label="Afegir film">
+                  </md-input-container>
+                </td>
+                <td md-cell>
+                  <img src="img/terres-mini.png" alt="terres"  style="height: 20px" />
+                  <md-input-container>
+                    <md-switch ng-model="addfilm.section" aria-label="select section" ng-value="false"></md-switch>
+                  </md-input-container>
+                  <img src="img/terres-art-mini.png" alt="terres + art&tur"  style="height: 20px" />
+                </td>
+                <td md-cell><md-button class="md-mini" ng-click="addfilmcorp()" aria-label="afegir film"><ng-md-icon icon="save"></ng-md-icon></md-button></td>
               </tr>
             </tbody>
           </table>
@@ -140,6 +260,13 @@
       </md-card-content>
     </md-card>
     <div layout-gt-sm="row" layout-sm="column">
+
+      <!--
+
+       Modificar número de films inscrits
+
+      -->
+
       <md-card>
         <md-card-content>
           <h2>Afegir documental</h2>

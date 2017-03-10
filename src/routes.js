@@ -19,19 +19,19 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controllerAs: 'dash'
     })
     .state('index.terreslab', {
-      url: '',
+      url: 'terreslab',
       templateUrl: 'app/terreslab.html',
       controller: 'TerresCtrl',
       controllerAs: 'terres'
     })
     .state('index.addterreslab', {
-      url: '',
+      url: 'afegir-assistent',
       templateUrl: 'app/addterreslab.html',
       controller: 'AddLabCtrl',
       controllerAs: 'AddLab'
     })
     .state('index.labassistent', {
-      url: '',
+      url: 'assistent/{id}',
       params: {
         id: null
       },
@@ -39,13 +39,13 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'LabassistCtrl'
     })
     .state('index.addcompetitor', {
-      url: '',
+      url: 'afegir-competidor',
       templateUrl: 'app/insert.html',
       controller: 'InsertCtrl',
       controllerAs: 'insert'
     })
     .state('index.competitor', {
-      url: '',
+      url: 'competidor/{id}',
       params: {
         id: null
       },
@@ -54,7 +54,7 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controllerAs: 'compctrl'
     })
     .state('index.filmdoc', {
-      url: '',
+      url: 'films/documentals/{id}',
       params: {
         id: null
       },
@@ -63,7 +63,7 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controllerAs: 'filmdoc'
     })
     .state('index.filmcorp', {
-      url: '',
+      url: 'films/corporatius/{id}',
       params: {
         id: null
       },
@@ -72,12 +72,18 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controllerAs: 'filmcorp'
     })
     .state('index.filmtour', {
-      url: '',
+      url: 'films/turistics/{id}',
       params: {
         id: null
       },
       templateUrl: 'app/filmtour.html',
       controller: 'FilmtourCtrl',
       controllerAs: 'filmtour'
+    })
+    .state('index.films', {
+      url: 'films',
+      templateUrl: 'app/films.html',
+      controller: 'FilmsCtrl',
+      controllerAs: 'films'
     });
 }

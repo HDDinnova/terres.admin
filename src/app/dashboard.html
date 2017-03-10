@@ -2,6 +2,7 @@
   <md-table-container>
     <table md-table>
       <thead md-head>
+        <th md-column></th>
         <th md-column>Nom</th>
         <th md-column>Empresa</th>
         <th md-column>País</th>
@@ -11,10 +12,11 @@
         <th md-column>Enviar mail</th>
       </thead>
       <tbody md-body>
-        <tr md-select="comp" md-autoselect ng-repeat="comp in competitors">
-          <td md-cell>{{comp.fullName}}</td>
-          <td md-cell>{{comp.comName}}</td>
-          <td md-cell>{{comp.country}}</td>
+        <tr md-select="comp" md-autoselect ng-repeat="comp in competitors track by $index" ng-class="{nopassword: comp.firstEnter == '1'}">
+          <td md-cell>{{$index + 1}}</td>
+          <td md-cell ng-bind-html="comp.fullName"></td>
+          <td md-cell ng-bind-html="comp.comName"></td>
+          <td md-cell ng-bind-html="comp.country"></td>
           <td md-cell ng-if="comp.factura === '1'">SI</td>
           <td md-cell ng-if="comp.factura === '0'">NO</td>
           <td md-cell>{{comp.numfactura}}</td>

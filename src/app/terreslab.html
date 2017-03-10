@@ -2,6 +2,7 @@
   <md-table-container>
     <table md-table>
       <thead md-head>
+        <th md-column><span></span></th>
         <th md-column><span>Nom</span></th>
         <th md-column><span>Cognoms</span></th>
         <th md-column><span>E-mail</span></th>
@@ -11,12 +12,13 @@
         <th md-column><span>Editar</span></th>
       </thead>
       <tbody md-body>
-        <tr ng-repeat="t in assistents">
+        <tr ng-repeat="t in assistents track by $index">
+          <td md-cell>{{$index + 1}}</td>
           <td md-cell ng-bind-html="t.nom"></td>
           <td md-cell ng-bind-html="t.cognoms"></td>
           <td md-cell>{{t.email}}</td>
           <td md-cell ng-bind-html="t.ciutat"></td>
-          <td md-cell>{{t.pais}}</td>
+          <td md-cell ng-bind-html="t.pais"></td>
           <td md-cell>{{t.categoria}}</td>
           <td md-cell><md-button class="md-mini md-accent" ng-click="edit(t.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
         </tr>

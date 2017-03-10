@@ -1,0 +1,71 @@
+<md-content>
+  <md-card>
+    <md-card-content>
+      <h2>Films corporatius</h2>
+      <md-table-container>
+        <table md-table>
+          <thead md-head>
+            <th md-column></th>
+            <th md-column>Títol</th>
+            <th md-column>Concursant</th>
+            <th md-column>Editar</th>
+          </thead>
+          <tbody md-body>
+            <tr ng-repeat="film in films.corporate track by $index">
+              <td md-cell>{{$index + 1}}</td>
+              <td md-cell ng-bind-html="film.title"></td>
+              <td md-cell ng-bind-html="film.fullName"></td>
+              <td md-cell><md-button class="md-mini md-accent" ng-click="filmcorp(film.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </md-card-content>
+  </md-card>
+  <md-card>
+    <md-card-content>
+      <h2>Films turístics</h2>
+      <md-table-container>
+        <table md-table>
+          <thead md-head>
+            <th md-column></th>
+            <th md-column>Títol</th>
+            <th md-column>Concursant</th>
+            <th md-column>Editar</th>
+          </thead>
+          <tbody md-body>
+            <tr ng-repeat="film in films.tourism track by $index">
+              <td md-cell>{{$index + 1}}</td>
+              <td md-cell ng-bind-html="film.title"></td>
+              <td md-cell ng-bind-html="film.fullName"></td>
+              <td md-cell><md-button class="md-mini md-accent" ng-click="filmtour(film.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </md-card-content>
+  </md-card>
+  <md-card>
+    <md-card-content>
+      <h2>Films documentals</h2>
+      <md-table-container>
+        <table md-table>
+          <thead md-head>
+            <th md-column></th>
+            <th md-column>Títol</th>
+            <th md-column>Concursant</th>
+            <th md-column>Editar</th>
+          </thead>
+          <tbody md-body>
+            <tr ng-repeat="film in films.documentary track by $index">
+              <td md-cell>{{$index + 1}}</td>
+              <td md-cell ng-bind-html="film.title"></td>
+              <td md-cell ng-bind-html="film.fullName"></td>
+              <td md-cell><md-button class="md-mini md-accent" ng-click="filmdoc(film.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </md-card-content>
+  </md-card>
+</md-content>

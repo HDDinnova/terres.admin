@@ -262,7 +262,7 @@ Flight::map('terreslabmail', function($email){
 Flight::route('GET /', function(){
   $db = Flight::db();
 
-  $sql = "SELECT id,fullName,comName,country,factura,numfactura FROM competitors";
+  $sql = "SELECT id,fullName,comName,country,factura,numfactura,firstEnter FROM competitors ORDER BY id";
   $comp = $db->prepare($sql);
   $comp->execute();
   $comps = [];
@@ -305,7 +305,7 @@ Flight::route('GET /competitor/@id', function($id){
   $comp->execute();
   $c['tourism'] = $comp->fetch(PDO::FETCH_ASSOC);
 
-  $sql = "SELECT id,title FROM corporatefilms WHERE id_cat_user = :user";
+  $sql = "SELECT id,title,section FROM corporatefilms WHERE id_cat_user = :user";
   $comp = $db->prepare($sql);
   $comp->bindParam(':user', $c['corporate']['id']);
   $comp->execute();
@@ -314,8 +314,9 @@ Flight::route('GET /competitor/@id', function($id){
     $title[] = $t;
   }
   $c['corporate']['title'] = $title;
+  // $c['corporate']['title']['title'] = stripslashes($c['corporate']['title']['title']);
 
-  $sql = "SELECT id,title FROM documentaryfilms WHERE id_cat_user = :user";
+  $sql = "SELECT id,title,section FROM documentaryfilms WHERE id_cat_user = :user";
   $comp = $db->prepare($sql);
   $comp->bindParam(':user', $c['documentary']['id']);
   $comp->execute();
@@ -324,8 +325,9 @@ Flight::route('GET /competitor/@id', function($id){
     $title[] = $t;
   }
   $c['documentary']['title'] = $title;
+  // $c['documentary']['title']['title'] = stripslashes($c['documentary']['title']['title']);
 
-  $sql = "SELECT id,title FROM tourismfilms WHERE id_cat_user = :user";
+  $sql = "SELECT id,title,section FROM tourismfilms WHERE id_cat_user = :user";
   $comp = $db->prepare($sql);
   $comp->bindParam(':user', $c['tourism']['id']);
   $comp->execute();
@@ -334,6 +336,7 @@ Flight::route('GET /competitor/@id', function($id){
     $title[] = $t;
   }
   $c['tourism']['title'] = $title;
+  // $c['tourism']['title']['title'] = stripslashes($c['tourism']['title']['title']);
 
   $db = NULL;
 
@@ -533,7 +536,7 @@ Flight::route('/upload/@table/@id', function($table, $id) {
 ///////
 // Add film to user
 ///////
-Flight::route('POST /addfilm/@table/@id', function($table, $id) {
+Flight::route('POST /addfilm/@table/@id/@f', function($table, $id, $f) {
   $data = [];
 
   $film = file_get_contents('php://input');
@@ -547,34 +550,43 @@ Flight::route('POST /addfilm/@table/@id', function($table, $id) {
     $section = 1;
   }
   if (isset($film['titledoc'])) {
-    $title = $film['titledoc'];
+    $title = addslashes($film['titledoc']);
   } else if (isset($film['titletour'])) {
-    $title = $film['titletour'];
+    $title = addslashes($film['titletour']);
   } else if (isset($film['titlecorp'])) {
-    $title = $film['titlecorp'];
+    $title = addslashes($film['titlecorp']);
   }
 
   $tablefilm = $table.'films';
 
-  $sql = "SELECT id,nfilms FROM $table WHERE user = :id";
-  $query = $db->prepare($sql);
-  $query->bindParam(':id', $id);
-  $query->execute();
-  if ($query->rowCount() > 0) {
+  if ($f == 'true') {
+    $sql = "SELECT id FROM $table WHERE user = :id";
+    $query = $db->prepare($sql);
+    $query->bindParam(':id', $id);
+    $query->execute();
     $res = $query->fetch(PDO::FETCH_ASSOC);
     $catid = $res['id'];
-    $nfilms = $res['nfilms'] + 1;
-    $sql = "UPDATE $table SET nfilms=:nfilms WHERE id=:id";
-    $query = $db->prepare($sql);
-    $query->bindParam(':nfilms', $nfilms);
-    $query->bindParam(':id', $catid);
-    $query->execute();
   } else {
-    $sql = "INSERT INTO $table (user,nfilms,date) VALUES (:user,1,CURDATE())";
+    $sql = "SELECT id,nfilms FROM $table WHERE user = :id";
     $query = $db->prepare($sql);
-    $query->bindParam(':user', $id);
+    $query->bindParam(':id', $id);
     $query->execute();
-    $catid = $db->lastInsertId();
+    if ($query->rowCount() > 0) {
+      $res = $query->fetch(PDO::FETCH_ASSOC);
+      $catid = $res['id'];
+      $nfilms = $res['nfilms'] + 1;
+      $sql = "UPDATE $table SET nfilms=:nfilms WHERE id=:id";
+      $query = $db->prepare($sql);
+      $query->bindParam(':nfilms', $nfilms);
+      $query->bindParam(':id', $catid);
+      $query->execute();
+    } else {
+      $sql = "INSERT INTO $table (user,nfilms,date) VALUES (:user,1,CURDATE())";
+      $query = $db->prepare($sql);
+      $query->bindParam(':user', $id);
+      $query->execute();
+      $catid = $db->lastInsertId();
+    }
   }
 
   $sql = "INSERT INTO $tablefilm (id_cat_user,section,title) VALUES (:catid,:section,:title)";
@@ -920,6 +932,49 @@ Flight::route('/addterreslab', function(){
     $db = NULL;
 
     Flight::json($data);
+});
+
+///////
+// List all films by section
+///////
+Flight::route('GET /films', function(){
+  $db = Flight::db();
+
+  $films = [];
+
+  $sql = "SELECT corporatefilms.id, competitors.fullName, title FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id";
+  $q = $db->prepare($sql);
+  $q->execute();
+  $corporate = [];
+  while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    $corporate[] = $row;
+  }
+
+  $films['corporate'] = $corporate;
+
+  $sql = "SELECT documentaryfilms.id, competitors.fullName, title FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id";
+  $q = $db->prepare($sql);
+  $q->execute();
+  $documentary = [];
+  while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    $documentary[] = $row;
+  }
+
+  $films['documentary'] = $documentary;
+
+  $sql = "SELECT tourismfilms.id, competitors.fullName, title FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id";
+  $q = $db->prepare($sql);
+  $q->execute();
+  $tourism = [];
+  while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    $tourism[] = $row;
+  }
+
+  $films['tourism'] = $tourism;
+
+  $db = NULL;
+
+  Flight::json($films);
 });
 
 
