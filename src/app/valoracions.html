@@ -1,0 +1,32 @@
+<md-content ng-controller="ValoracionsCtrl as vm">
+  <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Films turístics" layout-padding>
+        <md-table-container>
+          <table md-table>
+            <thead md-head>
+              <th md-column></th>
+              <th md-column>Títol</th>
+              <th md-column>Puntuació</th>
+            </thead>
+            <tbody md-body>
+              <tr ng-repeat="film in vm.valoracions.tourism track by $index">
+                <td md-cell>{{$index + 1}}</td>
+                <td md-cell ng-bind-html="film.title"></td>
+                <td md-cell>{{film.total}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+      </md-tab>
+      <md-tab label="Films corporatius">
+        <md-content class="md-padding">
+
+        </md-content>
+      </md-tab>
+      <md-tab label="Documentals">
+        <md-content class="md-padding">
+
+        </md-content>
+      </md-tab>
+    </md-tabs>
+</md-content>

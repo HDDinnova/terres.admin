@@ -85,5 +85,17 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: 'app/films.html',
       controller: 'FilmsCtrl',
       controllerAs: 'films'
+    })
+    .state('index.memberjury', {
+      url: 'membresjurat',
+      templateUrl: 'app/memberjury.html',
+      controller: 'MemberCtrl',
+      controllerAs: 'memberjury'
+    })
+    .state('index.jury', {
+      url: 'valoracions',
+      templateUrl: 'app/valoracions.html',
+      controller: 'ValoracionsCtrl',
+      controllerAs: 'valoracions'
     });
 }
