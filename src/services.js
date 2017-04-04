@@ -3,6 +3,7 @@ angular
   .factory('Competitors', Competitors)
   .factory('Assistents', Assistents)
   .factory('Films', Films)
+  .factory('Member', Member)
   .factory('Valoracions', Valoracions);
 
 function Competitors($resource) {
@@ -21,6 +22,13 @@ function Assistents($resource) {
 function Films($resource) {
   return $resource('api/films', {}, {
     query: {method: 'GET'}
+  });
+}
+
+function Member($resource) {
+  return $resource('api/memberjury', {}, {
+    create: {method: 'POST'},
+    query: {method: 'GET', isArray: true}
   });
 }
 

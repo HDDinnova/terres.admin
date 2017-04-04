@@ -490,7 +490,7 @@ Flight::route('GET /film/@cat/@id', function($cat,$id){
     case "tour":
         $sql = "SELECT * FROM tourismfilms WHERE id = :id";
         break;
-}
+  }
 
   $film = $db->prepare($sql);
   $film->bindParam(':id', $id);
@@ -736,7 +736,8 @@ Flight::route('POST /modifytourfilm', function() {
   $sql = $sql."naturaltour=:naturaltour,";
   $sql = $sql."enotourism=:enotourism,";
   $sql = $sql."destinations=:destinations,";
-  $sql = $sql."animation=:animation";
+  $sql = $sql."animation=:animation,";
+  $sql = $sql."translate=:translate";
   $sql = $sql." WHERE id=:id";
   $query = $db->prepare($sql);
   $query->bindParam(':title', $data['title']);
@@ -768,6 +769,7 @@ Flight::route('POST /modifytourfilm', function() {
   $query->bindParam(':destinations', $data['destinations']);
   $query->bindParam(':animation', $data['animation']);
   $query->bindParam(':id', $data['id']);
+  $query->bindParam(':translate', $data['translate']);
   if ($query->execute()) {
     $response['status'] = 200;
   } else {
@@ -795,6 +797,7 @@ Flight::route('POST /modifydocfilm', function() {
   $sql = $sql."synopsi=:synopsi,";
   $sql = $sql."director=:director,";
   $sql = $sql."producer=:producer,";
+  $sql = $sql."translate=:translate,";
   if (isset($data['screenshot1']['base64'])) {
     $sql = $sql."screenshot1=:screenshot1,";
     $sql = $sql."screenshot1Type=:screenshot1Type,";
@@ -814,6 +817,7 @@ Flight::route('POST /modifydocfilm', function() {
   $query->bindParam(':synopsi', $data['synopsi']);
   $query->bindParam(':director', $data['director']);
   $query->bindParam(':producer', $data['producer']);
+  $query->bindParam(':translate', $data['translate']);
   if (isset($data['screenshot1']['base64'])) {
     $query->bindParam(':screenshot1', $data['screenshot1']['base64']);
     $query->bindParam(':screenshot1Type', $data['screenshot1']['filetype']);
@@ -854,6 +858,7 @@ Flight::route('POST /modifycorpfilm', function() {
   $sql = $sql."synopsi=:synopsi,";
   $sql = $sql."director=:director,";
   $sql = $sql."producer=:producer,";
+  $sql = $sql."translate=:translate,";
   if (isset($data['screenshot1']['base64'])) {
     $sql = $sql."screenshot1=:screenshot1,";
     $sql = $sql."screenshot1Type=:screenshot1Type,";
@@ -873,6 +878,7 @@ Flight::route('POST /modifycorpfilm', function() {
   $query->bindParam(':synopsi', $data['synopsi']);
   $query->bindParam(':director', $data['director']);
   $query->bindParam(':producer', $data['producer']);
+  $query->bindParam(':translate', $data['translate']);
   if (isset($data['screenshot1']['base64'])) {
     $query->bindParam(':screenshot1', $data['screenshot1']['base64']);
     $query->bindParam(':screenshot1Type', $data['screenshot1']['filetype']);
@@ -942,7 +948,7 @@ Flight::route('GET /films', function(){
 
   $films = [];
 
-  $sql = "SELECT corporatefilms.id, competitors.fullName, title FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id";
+  $sql = "SELECT corporatefilms.id, competitors.fullName, title, translate FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $corporate = [];
@@ -952,7 +958,7 @@ Flight::route('GET /films', function(){
 
   $films['corporate'] = $corporate;
 
-  $sql = "SELECT documentaryfilms.id, competitors.fullName, title FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id";
+  $sql = "SELECT documentaryfilms.id, competitors.fullName, title, translate FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $documentary = [];
@@ -962,7 +968,7 @@ Flight::route('GET /films', function(){
 
   $films['documentary'] = $documentary;
 
-  $sql = "SELECT tourismfilms.id, competitors.fullName, title FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id";
+  $sql = "SELECT tourismfilms.id, competitors.fullName, title, translate FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $tourism = [];
@@ -977,7 +983,50 @@ Flight::route('GET /films', function(){
   Flight::json($films);
 });
 
+///////
+// Create jury users
+///////
+Flight::route('POST /memberjury', function(){
+  $db = Flight::db();
+  $post = file_get_contents('php://input');
+  $post = json_decode($post, true);
 
+  $sql = "INSERT INTO jury(name, email, password) VALUES (:name,:email,:password)";
+  $q = $db->prepare($sql);
+  $q->bindParam(':name', $post['name']);
+  $q->bindParam(':email', $post['email']);
+  $q->bindParam(':password', $post['password']);
+  if ($q->execute()) {
+    $message = 'Usuari creat satisfactòriament';
+    $header = 200;
+  } else {
+    $message = 'Hi ha hagut un problema, contacta amb Jordi ;-)';
+    $header = 500;
+  }
+
+  $db = NULL;
+
+  Flight::json($message,$header);
+});
+
+///////
+// Get all jury members
+///////
+Flight::route('GET /memberjury', function(){
+  $db = Flight::db();
+
+  $sql = "SELECT * FROM jury ORDER BY id";
+  $q = $db->prepare($sql);
+  $q->execute();
+  $members = [];
+  while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    $members[] = $row;
+  }
+
+  $db = NULL;
+
+  Flight::json($members);
+});
 
 ///////
 // Get film's valoration by category

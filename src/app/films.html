@@ -11,7 +11,7 @@
             <th md-column>Editar</th>
           </thead>
           <tbody md-body>
-            <tr ng-repeat="film in films.corporate track by $index">
+            <tr ng-repeat="film in films.corporate track by $index" ng-class="{traduit: film.translate == '1'}">
               <td md-cell>{{$index + 1}}</td>
               <td md-cell ng-bind-html="film.title"></td>
               <td md-cell ng-bind-html="film.fullName"></td>
@@ -34,7 +34,7 @@
             <th md-column>Editar</th>
           </thead>
           <tbody md-body>
-            <tr ng-repeat="film in films.tourism track by $index">
+            <tr ng-repeat="film in films.tourism track by $index" ng-class="{traduit: film.translate == '1'}">
               <td md-cell>{{$index + 1}}</td>
               <td md-cell ng-bind-html="film.title"></td>
               <td md-cell ng-bind-html="film.fullName"></td>
@@ -57,7 +57,7 @@
             <th md-column>Editar</th>
           </thead>
           <tbody md-body>
-            <tr ng-repeat="film in films.documentary track by $index">
+            <tr ng-repeat="film in films.documentary track by $index" ng-class="{traduit: film.translate == '1'}">
               <td md-cell>{{$index + 1}}</td>
               <td md-cell ng-bind-html="film.title"></td>
               <td md-cell ng-bind-html="film.fullName"></td>

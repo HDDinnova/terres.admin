@@ -1,0 +1,37 @@
+<md-content ng-controller="MemberCtrl as vm">
+  <form>
+    <md-input-container>
+      <label>Nom del jurat</label>
+      <input type="text" ng-model="vm.user.name">
+    </md-input-container>
+    <md-input-container>
+      <label>Usuari d'accés</label>
+      <input type="text" ng-model="vm.user.email">
+    </md-input-container>
+    <md-input-container>
+      <label>Contrasenya</label>
+      <input type="text" ng-model="vm.user.password">
+    </md-input-container>
+    <button type="button" name="button" ng-click="vm.crear()">Crear</button>
+  </form>
+  <md-card class="md-whiteframe-z3">
+    <md-card-content>
+      <md-table-container>
+        <table md-table>
+          <thead md-head>
+            <th md-column>Nom</th>
+            <th md-column>Usuari</th>
+            <th md-column>Contrasenya</th>
+          </thead>
+          <tbody md-body>
+            <tr ng-repeat="member in vm.members">
+              <td md-cell ng-bind-html="member.name"></td>
+              <td md-cell ng-bind-html="member.email"></td>
+              <td md-cell ng-bind-html="member.password"></td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+    </md-card-content>
+  </md-card>
+</md-content>

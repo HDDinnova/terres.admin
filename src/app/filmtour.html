@@ -7,7 +7,7 @@
     <div layout="row">
       <md-input-container layout-fill>
         <label>Sinopsi</label>
-        <textarea  layout="fill" rows="6" ng-model="film.synopsi" ng-minlength="300" aria-label="synopsi"></textarea>
+        <textarea  layout="fill" rows="6" ng-model="film.synopsi" aria-label="synopsi"></textarea>
       </md-input-container>
     </div>
     <md-input-container>
@@ -58,6 +58,13 @@
           Animació
         </md-checkbox>
       </fieldset>
+    </div>
+    <div layout-sm="row">
+      <md-input-container>
+        <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'" ng-model="film.translate" aria-label="traduit">
+          Traduït a l'anglès
+        </md-checkbox>
+      </md-input-container>
     </div>
     <div layout="row">
       <md-card>
