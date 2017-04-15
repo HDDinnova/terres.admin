@@ -7,6 +7,7 @@
           <thead md-head>
             <th md-column></th>
             <th md-column>Títol</th>
+            <th md-column>Director</th>
             <th md-column>Concursant</th>
             <th md-column>Editar</th>
           </thead>
@@ -14,6 +15,7 @@
             <tr ng-repeat="film in films.corporate track by $index" ng-class="{traduit: film.translate == '1'}">
               <td md-cell>{{$index + 1}}</td>
               <td md-cell ng-bind-html="film.title"></td>
+              <td md-cell ng-bind-html="film.director"></td>
               <td md-cell ng-bind-html="film.fullName"></td>
               <td md-cell><md-button class="md-mini md-accent" ng-click="filmcorp(film.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
             </tr>
@@ -30,6 +32,7 @@
           <thead md-head>
             <th md-column></th>
             <th md-column>Títol</th>
+            <th md-column>Director</th>
             <th md-column>Concursant</th>
             <th md-column>Editar</th>
           </thead>
@@ -37,6 +40,7 @@
             <tr ng-repeat="film in films.tourism track by $index" ng-class="{traduit: film.translate == '1'}">
               <td md-cell>{{$index + 1}}</td>
               <td md-cell ng-bind-html="film.title"></td>
+              <td md-cell ng-bind-html="film.director"></td>
               <td md-cell ng-bind-html="film.fullName"></td>
               <td md-cell><md-button class="md-mini md-accent" ng-click="filmtour(film.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
             </tr>
@@ -53,14 +57,16 @@
           <thead md-head>
             <th md-column></th>
             <th md-column>Títol</th>
-            <th md-column>Concursant</th>
+            <th md-column>Director</th>
+            <!-- <th md-column>Concursant</th> -->
             <th md-column>Editar</th>
           </thead>
           <tbody md-body>
             <tr ng-repeat="film in films.documentary track by $index" ng-class="{traduit: film.translate == '1'}">
               <td md-cell>{{$index + 1}}</td>
               <td md-cell ng-bind-html="film.title"></td>
-              <td md-cell ng-bind-html="film.fullName"></td>
+              <td md-cell ng-bind-html="film.director"></td>
+              <!-- <td md-cell ng-bind-html="film.fullName"></td> -->
               <td md-cell><md-button class="md-mini md-accent" ng-click="filmdoc(film.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
             </tr>
           </tbody>

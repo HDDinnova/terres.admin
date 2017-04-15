@@ -1,0 +1,20 @@
+<md-content>
+  <form>
+    <div layout="row">
+      <md-input-container>
+        <label>Tema</label>
+        <input type="text" ng-model="formdata.subject">
+      </md-input-container>
+    </div>
+    <label>Cos del missatge</label>
+    <trix-editor angular-trix ng-model="formdata.body"></trix-editor>
+    <div layout="row">
+      <md-input-container>
+        <md-button ngf-select class="md-fab md-primary" ngf-pattern="'application/*'" ngf-accept="'application/*'" aria-label="Adjuntar arxiu" ng-model="file" ><ng-md-icon icon="attach_file"></md-button>
+      </md-input-container>
+    </div>
+    <div layout="row">
+      <md-button aria-label="enviar correu" ng-click="send()"><ng-md-icon icon="send" style="fill: red"></ng-md-icon> Enviar correu</md-button>
+    </div>
+  </form>
+</md-content>

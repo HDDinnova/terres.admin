@@ -97,5 +97,17 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: 'app/valoracions.html',
       controller: 'ValoracionsCtrl',
       controllerAs: 'valoracions'
+    })
+    .state('index.sustain', {
+      url: 'sustainable-day',
+      templateUrl: 'app/sustain.html',
+      controller: 'SustainCtrl',
+      controllerAs: 'sustain'
+    })
+    .state('index.email', {
+      url: 'mailing',
+      templateUrl: 'app/email.html',
+      controller: 'EmailCtrl',
+      controllerAs: 'email'
     });
 }

@@ -1,6 +1,7 @@
 <?php
 require 'flight/Flight.php';
 require 'flight/helpers.php';
+require_once 'phpmailer/class.phpmailer.php';
 
 $dbuser = 'zk1woweu_admin';
 $dbpass = '6S8,fs)u.9Ra';
@@ -948,7 +949,7 @@ Flight::route('GET /films', function(){
 
   $films = [];
 
-  $sql = "SELECT corporatefilms.id, competitors.fullName, title, translate FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id";
+  $sql = "SELECT corporatefilms.id, competitors.fullName, director, title, translate FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $corporate = [];
@@ -958,7 +959,7 @@ Flight::route('GET /films', function(){
 
   $films['corporate'] = $corporate;
 
-  $sql = "SELECT documentaryfilms.id, competitors.fullName, title, translate FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id";
+  $sql = "SELECT documentaryfilms.id, competitors.fullName, director, title, translate FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $documentary = [];
@@ -968,7 +969,7 @@ Flight::route('GET /films', function(){
 
   $films['documentary'] = $documentary;
 
-  $sql = "SELECT tourismfilms.id, competitors.fullName, title, translate FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id";
+  $sql = "SELECT tourismfilms.id, competitors.fullName, director, title, translate FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $tourism = [];
@@ -1029,12 +1030,16 @@ Flight::route('GET /memberjury', function(){
 });
 
 ///////
-// Get film's valoration by category
+// Get films valoration by category
 ///////
 Flight::route('GET /valoration', function(){
   $db = Flight::db();
 
   $films = [];
+
+  /*
+      GET TOURISM FILM VALORATIONS
+  */
 
   $sql = "SELECT tourismfilms.id, competitors.fullName, title, director FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id ORDER BY tourismfilms.id";
   $q = $db->prepare($sql);
@@ -1046,7 +1051,7 @@ Flight::route('GET /valoration', function(){
   $films['tourism'] = $tourism;
   $index = 0;
   foreach ($films['tourism'] as $film) {
-    $sql = "SELECT jury.name, originalityscript, rythm, length, photography, sound, edition, specific1, specific2, sustainvalue, stimulate, originalitysustain, attractiveness, conscience FROM evaluation_tourism LEFT JOIN jury ON evaluation_tourism.jury = jury.id WHERE film = :id";
+    $sql = "SELECT jury.name, jury, film, originalityscript, rythm, length, photography, sound, edition, specialeffects, iseffective, plot, convincing, attractive, place_viewer, place_stimulate, specific_sell, specific_clear, specific_provide, specific_focus, specific_promote, discuss, attention, awareness FROM evaluation_tourism LEFT JOIN jury ON evaluation_tourism.jury = jury.id WHERE film = :id";
     $q = $db->prepare($sql);
     $q->bindParam(':id', $film['id']);
     $q->execute();
@@ -1058,8 +1063,8 @@ Flight::route('GET /valoration', function(){
     $suma = 0;
     $valoracions = count($eval);
     $idjury = 0;
-    foreach ($eval as $puntuations) {
-      $sumaparcial = ($puntuations['originalityscript'] + $puntuations['rythm'] + $puntuations['length'] + $puntuations['photography'] + $puntuations['sound'] + $puntuations['edition'] + $puntuations['specific1'] + $puntuations['specific2'] + $puntuations['sustainvalue'] + $puntuations['stimulate'] + $puntuations['originalitysustain'] + $puntuations['attractiveness'] + $puntuations['conscience'])/ 13;
+    foreach ($eval as $p) {
+      $sumaparcial = ($p['originalityscript'] + $p['rythm'] + $p['length'] + $p['photography'] + $p['sound'] + $p['edition'] + $p['specialeffects'] + $p['iseffective'] + $p['plot'] + $p['convincing']+ $p['attractive'] + $p['place_viewer'] + $p['place_stimulate'] + $p['specific_sell'] + $p['specific_clear'] + $p['specific_provide'] + $p['specific_focus'] + $p['specific_promote'] + $p['discuss'] + $p['attention'] + $p['awareness'])/ 21;
       $films['tourism'][$index]['jury'][$idjury]['total'] = $sumaparcial;
       $suma += $sumaparcial;
       $idjury++;
@@ -1071,40 +1076,209 @@ Flight::route('GET /valoration', function(){
     }
     $index++;
   }
-  // $sql = "SELECT corporatefilms.id, competitors.fullName, title FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id";
-  // $q = $db->prepare($sql);
-  // $q->execute();
-  // $corporate = [];
-  // while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
-  //   $corporate[] = $row;
-  // }
-  //
-  // $films['corporate'] = $corporate;
-  //
-  // $sql = "SELECT documentaryfilms.id, competitors.fullName, title FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id";
-  // $q = $db->prepare($sql);
-  // $q->execute();
-  // $documentary = [];
-  // while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
-  //   $documentary[] = $row;
-  // }
-  //
-  // $films['documentary'] = $documentary;
-  //
-  // $sql = "SELECT tourismfilms.id, competitors.fullName, title FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id";
-  // $q = $db->prepare($sql);
-  // $q->execute();
-  // $tourism = [];
-  // while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
-  //   $tourism[] = $row;
-  // }
-  //
-  // $films['tourism'] = $tourism;
 
+  /*
+      GET CORPORATE FILM VALORATIONS
+  */
+
+  $sql = "SELECT corporatefilms.id, competitors.fullName, title, director FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id ORDER BY corporatefilms.id";
+  $q = $db->prepare($sql);
+  $q->execute();
+  $corporate = [];
+  while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    $corporate[] = $row;
+  }
+  $films['corporate'] = $corporate;
+  $index = 0;
+  foreach ($films['corporate'] as $film) {
+    $sql = "SELECT jury.name, jury, film, originalityscript, rythm, length, photography, sound, edition, specialeffects, iseffective, plot, convincing, attractive, place_viewer, place_stimulate, specific_green, specific_csr, specific_provide, specific_portray, discuss, attention, awareness FROM evaluation_corporate LEFT JOIN jury ON evaluation_corporate.jury = jury.id WHERE film = :id";
+    $q = $db->prepare($sql);
+    $q->bindParam(':id', $film['id']);
+    $q->execute();
+    $eval = [];
+    while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+      $eval[] = $row;
+    }
+    $films['corporate'][$index]['jury'] = $eval;
+    $suma = 0;
+    $valoracions = count($eval);
+    $idjury = 0;
+    foreach ($eval as $p) {
+      $sumaparcial = ($p['originalityscript'] + $p['rythm'] + $p['length'] + $p['photography'] + $p['sound'] + $p['edition'] + $p['specialeffects'] + $p['iseffective'] + $p['plot'] + $p['convincing']+ $p['attractive'] + $p['place_viewer'] + $p['place_stimulate'] + $p['specific_green'] + $p['specific_csr'] + $p['specific_provide'] + $p['specific_portray'] + $p['discuss'] + $p['attention'] + $p['awareness'])/ 20;
+      $films['corporate'][$index]['jury'][$idjury]['total'] = $sumaparcial;
+      $suma += $sumaparcial;
+      $idjury++;
+    }
+    if ($valoracions != 0) {
+      $films['corporate'][$index]['total'] = round($suma / $valoracions, 4);
+    } else {
+      $films['corporate'][$index]['total'] = 0;
+    }
+    $index++;
+  }
+
+  /*
+      GET DOCUMENTARY FILM VALORATIONS
+  */
+
+  $sql = "SELECT documentaryfilms.id, competitors.fullName, title, director FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id ORDER BY documentaryfilms.id";
+  $q = $db->prepare($sql);
+  $q->execute();
+  $documentary = [];
+  while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+    $documentary[] = $row;
+  }
+  $films['documentary'] = $documentary;
+  $index = 0;
+  foreach ($films['documentary'] as $film) {
+    $sql = "SELECT jury.name, jury, film, originalityscript, rythm, length, photography, sound, edition, specialeffects, iseffective, plot, convincing, attractive, place_viewer, place_stimulate, specific_travel, specific_sustain, specific_narrative, specific_focus, specific_reflection, specific_suggest, discuss, attention, awareness FROM evaluation_documentary LEFT JOIN jury ON evaluation_documentary.jury = jury.id WHERE film = :id";
+    $q = $db->prepare($sql);
+    $q->bindParam(':id', $film['id']);
+    $q->execute();
+    $eval = [];
+    while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+      $eval[] = $row;
+    }
+    $films['documentary'][$index]['jury'] = $eval;
+    $suma = 0;
+    $valoracions = count($eval);
+    $idjury = 0;
+    foreach ($eval as $p) {
+      $sumaparcial = ($p['originalityscript'] + $p['rythm'] + $p['length'] + $p['photography'] + $p['sound'] + $p['edition'] + $p['specialeffects'] + $p['iseffective'] + $p['plot'] + $p['convincing']+ $p['attractive'] + $p['place_viewer'] + $p['place_stimulate'] + $p['specific_travel'] + $p['specific_sustain'] + $p['specific_narrative'] + $p['specific_focus'] + $p['specific_reflection'] + $p['specific_suggest'] + $p['discuss'] + $p['attention'] + $p['awareness'])/ 22;
+      $films['documentary'][$index]['jury'][$idjury]['total'] = $sumaparcial;
+      $suma += $sumaparcial;
+      $idjury++;
+    }
+    if ($valoracions != 0) {
+      $films['documentary'][$index]['total'] = round($suma / $valoracions, 4);
+    } else {
+      $films['documentary'][$index]['total'] = 0;
+    }
+    $index++;
+  }
 
   $db = NULL;
 
   Flight::json($films);
+});
+
+///////
+// List all members registered to Sustainable Day
+///////
+Flight::route('GET /sustainable', function(){
+  $db = Flight::db();
+
+  $sql = "SELECT id,nom,cognoms,email,ciutat,pais FROM sustain";
+  $comp = $db->prepare($sql);
+  $comp->execute();
+  $comps = [];
+  while ($c = $comp->fetch(PDO::FETCH_ASSOC)) {
+    $comps[] = $c;
+  }
+
+  $db = NULL;
+
+  Flight::json($comps);
+});
+
+///////
+// Add to Sustainable Day
+///////
+Flight::route('POST /sustainable', function(){
+  $db = Flight::db();
+  $data = [];
+
+  $dades = file_get_contents('php://input');
+  $dades = mb_convert_encoding($dades, 'HTML-ENTITIES', "UTF-8");
+
+  $post = json_decode($dades,true);
+
+  ///////
+  // Check if user is registered
+  ///////
+  $sql = "SELECT id FROM sustain WHERE email = :email LIMIT 1";
+  $check = $db->prepare($sql);
+  $check->bindParam(':email', $post['email']);
+  $check->execute();
+  $count = $check->rowCount();
+
+  if ($count === 0){
+    $sql = "INSERT INTO sustain(nom, cognoms, email, direccio, ciutat, pais) VALUES (:nom, :cognoms, :email, :direccio, :ciutat, :pais)";
+
+    $new = $db->prepare($sql);
+    $new->bindParam(':nom', $post['nom']);
+    $new->bindParam(':cognoms', $post['cognoms']);
+    $new->bindParam(':email', $post['email']);
+    $new->bindParam(':direccio', $post['direccio']);
+    $new->bindParam(':ciutat', $post['city']);
+    $new->bindParam(':pais', $post['country']);
+
+    try {
+      if ($new->execute()) {
+        $data['status'] = 200;
+        $data['message'] = 'User created succesfully';
+      } else {
+        $data['status'] = 400;
+        $data['message'] = 'Unknown error';
+      }
+    } catch (Exception $e) {
+      echo 'Exception: ',  $e->getMessage();
+    }
+  } else {
+    $data['status'] = 404;
+    $data['message'] = 'User exist';
+  }
+
+  $db = NULL;
+
+  Flight::json($data);
+});
+
+Flight::route('POST /mailtocomps', function() {
+  $post = Flight::request();
+
+  $mail = new PHPMailer;
+  $db = Flight::db();
+
+  if (isset($post->files->file['tmp_name'])) {
+    $file_tmp = $post->files->file['tmp_name'];
+    $file_name = $post->files->file['name'];
+
+    $mail->addAttachment($file_tmp, $file_name);
+  }
+
+  $subject = $post->data->email['subject'];
+  $body = $post->data->email['body'];
+
+  $sql = "SELECT fullName,email FROM competitors";
+  $members = $db->prepare($sql);
+  $members->execute();
+
+  $mail->setFrom('contact@terres.info', 'terres Catalunya');
+  $mail->addBCC('filmsnomades@gmail.com');
+
+  $mail->isHTML(true);
+
+  $body .= '<br><br><strong>terres Catalunya</strong><br><a href="https://terres.info">terres.info</a><br><br>#<br>T. 977 702 074<br><br><img src="https://terres.info/img/firmacorreu.jpg" />';
+
+  $mail->Subject = $subject;
+  $mail->Body    = $body;
+
+  while ($member = $members->fetch(PDO::FETCH_ASSOC)) {
+    $mail->addAddress($member['email'], $member['fullName']);
+
+    if (!$mail->send()) {
+        echo "Mailer Error (" . $member["email"] . ') ' . $mail->ErrorInfo . '\n';
+        break; //Abandon sending
+    } else {
+        echo "Message sent to : " . $member['fullName'] . ' (' . $member['email'] . ')\n';
+    }
+    // Clear all addresses and attachments for next loop
+    $mail->clearAddresses();
+  }
+
+  $mail = NULL;
+  $db = NULL;
 });
 
 

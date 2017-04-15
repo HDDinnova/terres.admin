@@ -4,7 +4,8 @@ angular
   .factory('Assistents', Assistents)
   .factory('Films', Films)
   .factory('Member', Member)
-  .factory('Valoracions', Valoracions);
+  .factory('Valoracions', Valoracions)
+  .factory('Sustainable', Sustainable);
 
 function Competitors($resource) {
   return $resource('api/', {}, {
@@ -35,5 +36,12 @@ function Member($resource) {
 function Valoracions($resource) {
   return $resource('api/valoration', {}, {
     query: {method: 'GET'}
+  });
+}
+
+function Sustainable($resource) {
+  return $resource('api/sustainable', {}, {
+    create: {method: 'POST'},
+    query: {method: 'GET', isArray: true}
   });
 }

@@ -50,3 +50,7 @@ code {
 .traduit{
   background-color: #FFF176;
 }
+
+.taula tr{
+  line-height: 40px;
+}
