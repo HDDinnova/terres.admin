@@ -13,6 +13,9 @@ md-toolbar:not(.md-hue-1), .md-fab {
 md-sidenav {
   fill: #737373;
 }
+md-input-container:not(.md-input-has-value) input:not(:focus){
+  color: black;
+}
 .user-avatar {
   border-radius: 99%;
 }
@@ -30,6 +33,10 @@ code {
 }
 .text-center {
   text-align: center!important
+}
+
+.text-mini p{
+  font-size: 9px;
 }
 
 .loader{
@@ -53,4 +60,16 @@ code {
 
 .taula tr{
   line-height: 40px;
+}
+
+.taulaboto{
+  padding: 0 !important;
+}
+
+.taulaboto .md-button{
+  min-width: 25px;
+}
+
+table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2), table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+  padding: 2px !important;
 }

@@ -104,10 +104,42 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'SustainCtrl',
       controllerAs: 'sustain'
     })
+    .state('index.sustainassistent', {
+      url: 'sustainable-assistent/{id}',
+      params: {
+        id: null
+      },
+      templateUrl: 'app/sustainassistent.html',
+      controller: 'SustainAssistCtrl'
+    })
     .state('index.email', {
       url: 'mailing',
       templateUrl: 'app/email.html',
       controller: 'EmailCtrl',
       controllerAs: 'email'
+    })
+    .state('index.valfilmtour', {
+      url: 'valoracions/turistics/{id}',
+      params: {
+        id: null
+      },
+      templateUrl: 'app/valfilmtour.html',
+      controller: 'ValTourCtrl'
+    })
+    .state('index.valfilmcorp', {
+      url: 'valoracions/corporatius/{id}',
+      params: {
+        id: null
+      },
+      templateUrl: 'app/valfilmcorp.html',
+      controller: 'ValCorpCtrl'
+    })
+    .state('index.valfilmdoc', {
+      url: 'valoracions/documentals/{id}',
+      params: {
+        id: null
+      },
+      templateUrl: 'app/valfilmdoc.html',
+      controller: 'ValDocCtrl'
     });
 }

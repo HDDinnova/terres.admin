@@ -34,6 +34,12 @@
           <input type="text" name="city" ng-model="vm.formData.country" required="true">
         </md-input-container>
       </div>
+      <div layout="column" layout-gt-xs="row">
+        <md-input-container>
+          <label for="comentaris">comentaris</label>
+          <textarea name="comentaris" rows="3" cols="80" ng-model="vm.formData.comentaris"></textarea>
+        </md-input-container>
+      </div>
     </div>
     <div layout="row" layout-align="center">
       <md-button class="md-raised md-primary" ng-click="vm.processSustain()" ng-disabled="sustain_register.$invalid">Registrar</md-button>
@@ -58,7 +64,8 @@
           <td md-cell>{{t.email}}</td>
           <td md-cell ng-bind-html="t.ciutat"></td>
           <td md-cell ng-bind-html="t.pais"></td>
-          <!-- <td md-cell><md-button class="md-mini md-accent" ng-click="edit(t.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td> -->
+          <td md-cell class="taulaboto"><md-button class="md-mini md-warn" ng-click="vm.delete(t.id)" aria-label="eliminar"><ng-md-icon icon="cancel"></ng-md-icon></md-button></td>
+          <td md-cell class="taulaboto"><md-button class="md-mini md-accent" ng-click="vm.edit(t.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
         </tr>
       </tbody>
     </table>

@@ -7,12 +7,14 @@
               <th md-column></th>
               <th md-column>Títol</th>
               <th md-column>Puntuació</th>
+              <th md-column>Veure detall</th>
             </thead>
             <tbody md-body class="taula">
               <tr ng-repeat="film in vm.valoracions.tourism track by $index">
                 <td md-cell>{{$index + 1}}</td>
                 <td md-cell ng-bind-html="film.title"></td>
                 <td md-cell>{{film.total}}</td>
+                <td md-cell><a ui-sref="index.valfilmtour({id: film.id})"><ng-md-icon icon="visibility"></ng-md-icon></a></td>
               </tr>
             </tbody>
           </table>
@@ -25,12 +27,14 @@
               <th md-column></th>
               <th md-column>Títol</th>
               <th md-column>Puntuació</th>
+              <th md-column>Veure detall</th>
             </thead>
             <tbody md-body class="taula">
               <tr ng-repeat="film in vm.valoracions.corporate track by $index">
                 <td md-cell>{{$index + 1}}</td>
                 <td md-cell ng-bind-html="film.title"></td>
                 <td md-cell>{{film.total}}</td>
+                <td md-cell><a ui-sref="index.valfilmcorp({id: film.id})"><ng-md-icon icon="visibility"></ng-md-icon></a></td>
               </tr>
             </tbody>
           </table>
@@ -42,12 +46,14 @@
             <th md-column></th>
             <th md-column>Títol</th>
             <th md-column>Puntuació</th>
+            <th md-column>Veure detall</th>
           </thead>
           <tbody md-body class="taula">
             <tr ng-repeat="film in vm.valoracions.documentary track by $index">
               <td md-cell>{{$index + 1}}</td>
               <td md-cell ng-bind-html="film.title"></td>
               <td md-cell>{{film.total}}</td>
+              <td md-cell><a ui-sref="index.valfilmdoc({id: film.id})"><ng-md-icon icon="visibility"></ng-md-icon></a></td>
             </tr>
           </tbody>
         </table>

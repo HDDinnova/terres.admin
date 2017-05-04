@@ -10,6 +10,7 @@
         <th md-column><span>País</span></th>
         <th md-column><span>Categoria</span></th>
         <th md-column><span>Editar</span></th>
+        <th md-column><span>Eliminar</span></th>
       </thead>
       <tbody md-body>
         <tr ng-repeat="t in assistents track by $index">
@@ -20,7 +21,8 @@
           <td md-cell ng-bind-html="t.ciutat"></td>
           <td md-cell ng-bind-html="t.pais"></td>
           <td md-cell>{{t.categoria}}</td>
-          <td md-cell><md-button class="md-mini md-accent" ng-click="edit(t.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
+          <td md-cell class="taulaboto"><md-button class="md-mini md-accent" ng-click="edit(t.id)" aria-label="editar"><ng-md-icon icon="visibility"></ng-md-icon></md-button></td>
+          <td md-cell class="taulaboto"><md-button class="md-mini md-warn" ng-click="delete(t.id)" aria-label="eliminar"><ng-md-icon icon="cancel"></ng-md-icon></md-button></td>
         </tr>
       </tbody>
     </table>

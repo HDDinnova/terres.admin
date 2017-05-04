@@ -432,6 +432,29 @@ Flight::route('GET /terreslab/@id', function($id){
 });
 
 ///////
+// Delete selected member registered to terres LAB
+///////
+Flight::route('DELETE /terreslab/@id', function($id){
+  $db = Flight::db();
+
+  $sql = "DELETE FROM terreslab WHERE id = :id";
+  $comp = $db->prepare($sql);
+  $comp->bindParam(':id', $id);
+  $comp->execute();
+  if ($comp->rowCount() > 0) {
+    $header = 200;
+    $res = "Usuari eliminat correctament";
+  } else {
+    $header = 404;
+    $res = "L'usuari ja no existeix";
+  }
+
+  $db = NULL;
+
+  Flight::json($res,$header);
+});
+
+///////
 // Resend and password reset
 ///////
 Flight::route('/resend/@id', function($id){
@@ -666,7 +689,7 @@ Flight::route('POST /modifyuser', function() {
 });
 
 ///////
-// Edit user fields
+// Edit user registered to Terres Lab
 ///////
 Flight::route('POST /modifyassistent', function() {
   $data = file_get_contents('php://input');
@@ -738,6 +761,7 @@ Flight::route('POST /modifytourfilm', function() {
   $sql = $sql."enotourism=:enotourism,";
   $sql = $sql."destinations=:destinations,";
   $sql = $sql."animation=:animation,";
+  $sql = $sql."filmduration=:filmduration,";
   $sql = $sql."translate=:translate";
   $sql = $sql." WHERE id=:id";
   $query = $db->prepare($sql);
@@ -770,6 +794,7 @@ Flight::route('POST /modifytourfilm', function() {
   $query->bindParam(':destinations', $data['destinations']);
   $query->bindParam(':animation', $data['animation']);
   $query->bindParam(':id', $data['id']);
+  $query->bindParam(':filmduration', $data['filmduration']);
   $query->bindParam(':translate', $data['translate']);
   if ($query->execute()) {
     $response['status'] = 200;
@@ -798,6 +823,7 @@ Flight::route('POST /modifydocfilm', function() {
   $sql = $sql."synopsi=:synopsi,";
   $sql = $sql."director=:director,";
   $sql = $sql."producer=:producer,";
+  $sql = $sql."filmduration=:filmduration,";
   $sql = $sql."translate=:translate,";
   if (isset($data['screenshot1']['base64'])) {
     $sql = $sql."screenshot1=:screenshot1,";
@@ -818,6 +844,7 @@ Flight::route('POST /modifydocfilm', function() {
   $query->bindParam(':synopsi', $data['synopsi']);
   $query->bindParam(':director', $data['director']);
   $query->bindParam(':producer', $data['producer']);
+  $query->bindParam(':filmduration', $data['filmduration']);
   $query->bindParam(':translate', $data['translate']);
   if (isset($data['screenshot1']['base64'])) {
     $query->bindParam(':screenshot1', $data['screenshot1']['base64']);
@@ -859,6 +886,7 @@ Flight::route('POST /modifycorpfilm', function() {
   $sql = $sql."synopsi=:synopsi,";
   $sql = $sql."director=:director,";
   $sql = $sql."producer=:producer,";
+  $sql = $sql."filmduration=:filmduration,";
   $sql = $sql."translate=:translate,";
   if (isset($data['screenshot1']['base64'])) {
     $sql = $sql."screenshot1=:screenshot1,";
@@ -879,6 +907,7 @@ Flight::route('POST /modifycorpfilm', function() {
   $query->bindParam(':synopsi', $data['synopsi']);
   $query->bindParam(':director', $data['director']);
   $query->bindParam(':producer', $data['producer']);
+  $query->bindParam(':filmduration', $data['filmduration']);
   $query->bindParam(':translate', $data['translate']);
   if (isset($data['screenshot1']['base64'])) {
     $query->bindParam(':screenshot1', $data['screenshot1']['base64']);
@@ -949,7 +978,7 @@ Flight::route('GET /films', function(){
 
   $films = [];
 
-  $sql = "SELECT corporatefilms.id, competitors.fullName, director, title, translate FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id";
+  $sql = "SELECT corporatefilms.id, competitors.fullName, director, title, translate, filmduration FROM corporatefilms LEFT JOIN corporate ON corporatefilms.id_cat_user = corporate.id LEFT JOIN competitors ON corporate.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $corporate = [];
@@ -959,7 +988,7 @@ Flight::route('GET /films', function(){
 
   $films['corporate'] = $corporate;
 
-  $sql = "SELECT documentaryfilms.id, competitors.fullName, director, title, translate FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id";
+  $sql = "SELECT documentaryfilms.id, competitors.fullName, director, title, translate, filmduration FROM documentaryfilms LEFT JOIN documentary ON documentaryfilms.id_cat_user = documentary.id LEFT JOIN competitors ON documentary.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $documentary = [];
@@ -969,7 +998,7 @@ Flight::route('GET /films', function(){
 
   $films['documentary'] = $documentary;
 
-  $sql = "SELECT tourismfilms.id, competitors.fullName, director, title, translate FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id";
+  $sql = "SELECT tourismfilms.id, competitors.fullName, director, title, translate, filmduration FROM tourismfilms LEFT JOIN tourism ON tourismfilms.id_cat_user = tourism.id LEFT JOIN competitors ON tourism.user = competitors.id";
   $q = $db->prepare($sql);
   $q->execute();
   $tourism = [];
@@ -1168,7 +1197,7 @@ Flight::route('GET /valoration', function(){
 Flight::route('GET /sustainable', function(){
   $db = Flight::db();
 
-  $sql = "SELECT id,nom,cognoms,email,ciutat,pais FROM sustain";
+  $sql = "SELECT * FROM sustain";
   $comp = $db->prepare($sql);
   $comp->execute();
   $comps = [];
@@ -1179,6 +1208,29 @@ Flight::route('GET /sustainable', function(){
   $db = NULL;
 
   Flight::json($comps);
+});
+
+///////
+// Delete selected member registered to Sustainable Day
+///////
+Flight::route('DELETE /sustainable/@id', function($id){
+  $db = Flight::db();
+
+  $sql = "DELETE FROM sustain WHERE id = :id";
+  $comp = $db->prepare($sql);
+  $comp->bindParam(':id', $id);
+  $comp->execute();
+  if ($comp->rowCount() > 0) {
+    $header = 200;
+    $res = "Usuari eliminat correctament";
+  } else {
+    $header = 404;
+    $res = "L'usuari ja no existeix";
+  }
+
+  $db = NULL;
+
+  Flight::json($res,$header);
 });
 
 ///////
@@ -1203,7 +1255,12 @@ Flight::route('POST /sustainable', function(){
   $count = $check->rowCount();
 
   if ($count === 0){
-    $sql = "INSERT INTO sustain(nom, cognoms, email, direccio, ciutat, pais) VALUES (:nom, :cognoms, :email, :direccio, :ciutat, :pais)";
+    if (isset($post['comentaris'])) {
+      $sql = "INSERT INTO sustain(nom, cognoms, email, direccio, ciutat, pais, comentaris) VALUES (:nom, :cognoms, :email, :direccio, :ciutat, :pais, :comentaris)";
+    } else {
+      $sql = "INSERT INTO sustain(nom, cognoms, email, direccio, ciutat, pais) VALUES (:nom, :cognoms, :email, :direccio, :ciutat, :pais)";
+    }
+
 
     $new = $db->prepare($sql);
     $new->bindParam(':nom', $post['nom']);
@@ -1212,6 +1269,9 @@ Flight::route('POST /sustainable', function(){
     $new->bindParam(':direccio', $post['direccio']);
     $new->bindParam(':ciutat', $post['city']);
     $new->bindParam(':pais', $post['country']);
+    if (isset($post['comentaris'])) {
+      $new->bindParam(':comentaris', $post['comentaris']);
+    }
 
     try {
       if ($new->execute()) {
@@ -1232,6 +1292,129 @@ Flight::route('POST /sustainable', function(){
   $db = NULL;
 
   Flight::json($data);
+});
+
+///////
+// List selected member registered to Sustainable day
+///////
+Flight::route('GET /sustainable/@id', function($id){
+  $db = Flight::db();
+
+  $sql = "SELECT * FROM sustain WHERE id = :id";
+  $comp = $db->prepare($sql);
+  $comp->bindParam(':id', $id);
+  $comp->execute();
+  $c = $comp->fetch(PDO::FETCH_ASSOC);
+
+  $db = NULL;
+
+  Flight::json($c);
+});
+
+///////
+// Edit user registered to Sustainable day
+///////
+Flight::route('POST /modifysustain', function() {
+  $data = file_get_contents('php://input');
+  $data = json_decode($data, true);
+
+  print_r($data);
+
+  $db = Flight::db();
+
+  $sql = "UPDATE sustain SET nom=:nom, cognoms=:cognoms, email=:email, direccio=:direccio, ciutat=:ciutat, pais=:pais, comentaris=:comentaris WHERE id=:id";
+  $query = $db->prepare($sql);
+  $query->bindParam(':nom', $data['nom']);
+  $query->bindParam(':cognoms', $data['cognoms']);
+  $query->bindParam(':email', $data['email']);
+  $query->bindParam(':direccio', $data['direccio']);
+  $query->bindParam(':ciutat', $data['ciutat']);
+  $query->bindParam(':pais', $data['pais']);
+  $query->bindParam(':comentaris', $data['comentaris']);
+  $query->bindParam(':id', $data['id']);
+  if ($query->execute()) {
+    $response['status'] = 200;
+  } else {
+    $response['status'] = 500;
+  }
+
+  Flight::json($response);
+
+  $db = NULL;
+});
+
+///////
+// Get all tourfilm valorations by film
+///////
+Flight::route('GET /valtourfilm/@id', function($id) {
+  $db = Flight::db();
+
+  $sql = "SELECT tourismfilms.title, jury.name, evaluation_tourism.* FROM evaluation_tourism LEFT JOIN jury ON evaluation_tourism.jury = jury.id LEFT JOIN tourismfilms ON evaluation_tourism.film = tourismfilms.id WHERE evaluation_tourism.film = $id";
+  $query = $db->prepare($sql);
+  $query->execute();
+  $evals = [];
+  while ($c = $query->fetch(PDO::FETCH_ASSOC)) {
+    $c['total'] = $c['originalityscript'] + $c['rythm'] + $c['length'] + $c['photography'] + $c['sound'];
+    $c['total'] += ($c['edition'] + $c['specialeffects'] + $c['iseffective'] + $c['plot'] + $c['convincing']);
+    $c['total'] += ($c['attractive'] + $c['place_viewer'] + $c['place_stimulate'] + $c['specific_sell'] + $c['specific_clear']);
+    $c['total'] += ($c['specific_provide'] + $c['specific_focus'] + $c['specific_promote'] + $c['discuss'] + $c['attention']);
+    $c['total'] += ($c['awareness']);
+    $c['total'] = round($c['total'] / 21, 2);
+    $evals[] = $c;
+  }
+
+  Flight::json($evals);
+
+  $db = NULL;
+});
+
+///////
+// Get all corporate valorations by film
+///////
+Flight::route('GET /valcorpfilm/@id', function($id) {
+  $db = Flight::db();
+
+  $sql = "SELECT corporatefilms.title, jury.name, evaluation_corporate.* FROM evaluation_corporate LEFT JOIN jury ON evaluation_corporate.jury = jury.id LEFT JOIN corporatefilms ON evaluation_corporate.film = corporatefilms.id WHERE evaluation_corporate.film = $id";
+  $query = $db->prepare($sql);
+  $query->execute();
+  $evals = [];
+  while ($c = $query->fetch(PDO::FETCH_ASSOC)) {
+    $c['total'] = $c['originalityscript'] + $c['rythm'] + $c['length'] + $c['photography'] + $c['sound'];
+    $c['total'] += ($c['edition'] + $c['specialeffects'] + $c['iseffective'] + $c['plot'] + $c['convincing']);
+    $c['total'] += ($c['attractive'] + $c['place_viewer'] + $c['place_stimulate'] + $c['specific_green'] + $c['specific_csr']);
+    $c['total'] += ($c['specific_provide'] + $c['specific_portray'] + $c['discuss'] + $c['attention'] + $c['awareness']);
+    $c['total'] = round($c['total'] / 20, 2);
+    $evals[] = $c;
+  }
+
+  Flight::json($evals);
+
+  $db = NULL;
+});
+
+///////
+// Get all documentary valorations by film
+///////
+Flight::route('GET /valdocfilm/@id', function($id) {
+  $db = Flight::db();
+
+  $sql = "SELECT documentaryfilms.title, jury.name, evaluation_documentary.* FROM evaluation_documentary LEFT JOIN jury ON evaluation_documentary.jury = jury.id LEFT JOIN documentaryfilms ON evaluation_documentary.film = documentaryfilms.id WHERE evaluation_documentary.film = $id";
+  $query = $db->prepare($sql);
+  $query->execute();
+  $evals = [];
+  while ($c = $query->fetch(PDO::FETCH_ASSOC)) {
+    $c['total'] = $c['originalityscript'] + $c['rythm'] + $c['length'] + $c['photography'] + $c['sound'];
+    $c['total'] += ($c['edition'] + $c['specialeffects'] + $c['iseffective'] + $c['plot'] + $c['convincing']);
+    $c['total'] += ($c['attractive'] + $c['place_viewer'] + $c['place_stimulate'] + $c['specific_travel'] + $c['specific_sustain']);
+    $c['total'] += ($c['specific_narrative'] + $c['specific_focus'] + $c['specific_reflection'] + $c['discuss'] + $c['attention']);
+    $c['total'] += ($c['awareness'] + $c['specific_suggest']);
+    $c['total'] = round($c['total'] / 22, 2);
+    $evals[] = $c;
+  }
+
+  Flight::json($evals);
+
+  $db = NULL;
 });
 
 Flight::route('POST /mailtocomps', function() {
@@ -1280,7 +1463,6 @@ Flight::route('POST /mailtocomps', function() {
   $mail = NULL;
   $db = NULL;
 });
-
 
 Flight::route('/testupload', function() {
   phpinfo();

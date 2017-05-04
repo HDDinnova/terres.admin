@@ -8,7 +8,6 @@ function Filmsctrl($scope, $state, $http) {
   $http.get('api/films')
   .then(function (data) {
     $scope.films = data.data;
-    console.log($scope.films);
   });
 
   $scope.filmdoc = function (id) {

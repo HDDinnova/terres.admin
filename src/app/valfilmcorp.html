@@ -1,0 +1,79 @@
+<md-content>
+  <md-table-container>
+    <table md-table>
+      <thead md-head>
+        <th md-column>Jurat</th>
+        <th md-column>Total</th>
+        <th md-column>P1</th>
+        <th md-column>P2</th>
+        <th md-column>P3</th>
+        <th md-column>P4</th>
+        <th md-column>P5</th>
+        <th md-column>P6</th>
+        <th md-column>P7</th>
+        <th md-column>P8</th>
+        <th md-column>P9</th>
+        <th md-column>P10</th>
+        <th md-column>P11</th>
+        <th md-column>P12</th>
+        <th md-column>P13</th>
+        <th md-column>P14</th>
+        <th md-column>P15</th>
+        <th md-column>P16</th>
+        <th md-column>P17</th>
+        <th md-column>P18</th>
+        <th md-column>P19</th>
+        <th md-column>P20</th>
+      </thead>
+      <tbody md-body>
+        <tr md-select="comp" md-autoselect ng-repeat="v in valoracions">
+          <td md-cell ng-bind-html="v.name"></td>
+          <td md-cell><strong>{{v.total}}</strong></td>
+          <td md-cell>{{v.originalityscript}}</td>
+          <td md-cell>{{v.rythm}}</td>
+          <td md-cell>{{v.length}}</td>
+          <td md-cell>{{v.photography}}</td>
+          <td md-cell>{{v.sound}}</td>
+          <td md-cell>{{v.edition}}</td>
+          <td md-cell>{{v.specialeffects}}</td>
+          <td md-cell>{{v.iseffective}}</td>
+          <td md-cell>{{v.plot}}</td>
+          <td md-cell>{{v.convincing}}</td>
+          <td md-cell>{{v.attractive}}</td>
+          <td md-cell>{{v.place_viewer}}</td>
+          <td md-cell>{{v.place_stimulate}}</td>
+          <td md-cell>{{v.specific_green}}</td>
+          <td md-cell>{{v.specific_csr}}</td>
+          <td md-cell>{{v.specific_provide}}</td>
+          <td md-cell>{{v.specific_portray}}</td>
+          <td md-cell>{{v.discuss}}</td>
+          <td md-cell>{{v.attention}}</td>
+          <td md-cell>{{v.awareness}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+  <md-divider md-inset></md-divider>
+  <div class="text-mini">
+    <p><strong>P1 </strong>Originality of the script</p>
+    <p><strong>P2 </strong>Rhythm</p>
+    <p><strong>P3 </strong>Adequate length of the film</p>
+    <p><strong>P4 </strong>Photography</p>
+    <p><strong>P5 </strong>Sound work</p>
+    <p><strong>P6 </strong>Edition</p>
+    <p><strong>P7 </strong>How is the use of special effects? Animations?</p>
+    <p><strong>P8 </strong>Is it effective?</p>
+    <p><strong>P9 </strong>Is the plot of the story originally told?</p>
+    <p><strong>P10 </strong>Is the message convincing, without portraying a false image?</p>
+    <p><strong>P11 </strong>Is the message attractive?</p>
+    <p><strong>P12 </strong>Is it the viewer part of what s/he sees or just a viewer?</p>
+    <p><strong>P13 </strong>Does the film stimulate a specific emotion?</p>
+    <p><strong>P14 </strong>Is the film "green washing" an otherwise environmentally unfriendly corporate image?</p>
+    <p><strong>P15 </strong>Does it enhance the Corporate Social Responsibility (CSR) of the company?</p>
+    <p><strong>P16 </strong>Does the company's products/services provide sustainable solutions to an unsustainable problem?</p>
+    <p><strong>P17 </strong>Does the film adequately portray this sustainable solution?</p>
+    <p><strong>P18 </strong>Does the film discuss all the three pillars of sustainability: environmental, socio-cultural and economic values (also known as the 3 p’s people, planet, profit), or is it only focused on one of these three values (for example, only the environment)?</p>
+    <p><strong>P29 </strong>Has attention been paid to sustainability values during the production of the film, as fas as can be judged by the final film? (Think of the impact the production of the film had on environment, people, animals, cultures, on long or short term)</p>
+    <p><strong>P20 </strong>Does the film stimulate a sustainable awareness in the viewer based on the above mentioned 3 p’s (environmental, socio-cultural and economic values)?</p>
+  </div>
+</md-content>

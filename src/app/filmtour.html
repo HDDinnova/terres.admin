@@ -61,6 +61,10 @@
     </div>
     <div layout-sm="row">
       <md-input-container>
+        <md-input-container>
+          <label>Durada</label>
+          <input type="text" ng-model="film.filmduration">
+        </md-input-container>
         <md-checkbox md-no-ink ng-true-value="'1'" ng-false-value="'0'" ng-model="film.translate" aria-label="traduit">
           Traduït a l'anglès
         </md-checkbox>
@@ -103,6 +107,6 @@
 <md-content layout-padding>
   <div layout="row" layout-align="center" layout-fill>
     <md-button ng-if="!film.film" class="md-fab md-primary" aria-label="upload film"  accept="video/*" ngf-select="upload($file)" ngf-max-size="999MB"><ng-md-icon icon="movie"></md-button>
-    <video style="width: 50%; height: 50%;" ng-if="film.film" ng-src="http://terres.info/intranet/film/{{film.film}}" controls></video>
+    <video style="width: 50%; height: 50%;" ng-if="film.film" ng-src="https://terres.info/intranet/film/{{film.film}}" controls></video>
   </div>
 </md-content>
