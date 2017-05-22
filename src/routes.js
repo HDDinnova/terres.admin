@@ -24,6 +24,18 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'TerresCtrl',
       controllerAs: 'terres'
     })
+    .state('index.terreslabstudent', {
+      url: 'student',
+      templateUrl: 'app/terreslabstudent.html',
+      controller: 'TerresStudentCtrl',
+      controllerAs: 'terresStudent'
+    })
+    .state('index.terreslaboneday', {
+      url: 'oneday',
+      templateUrl: 'app/terreslaboneday.html',
+      controller: 'TerresOneDayCtrl',
+      controllerAs: 'terresOneday'
+    })
     .state('index.addterreslab', {
       url: 'afegir-assistent',
       templateUrl: 'app/addterreslab.html',
@@ -141,5 +153,25 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       },
       templateUrl: 'app/valfilmdoc.html',
       controller: 'ValDocCtrl'
+    })
+    .state('index.sopar', {
+      url: 'sopar',
+      templateUrl: 'app/sopar.html',
+      controller: 'SoparCtrl',
+      controllerAs: 'sopar'
+    })
+    .state('index.soparassistent', {
+      url: 'sopar-assistent/{id}',
+      params: {
+        id: null
+      },
+      templateUrl: 'app/soparassistent.html',
+      controller: 'SoparAssistCtrl'
+    })
+    .state('index.winners', {
+      url: 'guanyadors',
+      templateUrl: 'app/winners.html',
+      controller: 'WinnersCtrl',
+      controllerAs: 'winners'
     });
 }

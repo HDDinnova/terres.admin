@@ -15,6 +15,138 @@ Flight::register('db', 'PDO', array('mysql:host=localhost;dbname=zk1woweu_terres
   }
 );
 
+Flight::map('getWinnerTourism', function($field) {
+  $db = Flight::db();
+  $sql = "SELECT id, title FROM tourismfilms WHERE $field = 1 ORDER BY id";
+  $query = $db->prepare($sql);
+  $query->execute();
+  $i = 0;
+  $film = [];
+  while ($f = $query->fetch(PDO::FETCH_ASSOC)) {
+    $film[$i]['id'] = $f['id'];
+    $film[$i]['title'] = $f['title'];
+    $sql = "SELECT * FROM evaluation_tourism WHERE film = :id";
+    $q = $db->prepare($sql);
+    $q->bindParam(':id', $f['id']);
+    $q->execute();
+    $eval = [];
+    while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+      $eval[] = $row;
+    }
+    $suma = 0;
+    $valoracions = count($eval);
+    foreach ($eval as $p) {
+      $sumaparcial = ($p['originalityscript'] + $p['rythm'] + $p['length'] + $p['photography'] + $p['sound'] + $p['edition'] + $p['specialeffects'] + $p['iseffective'] + $p['plot'] + $p['convincing']+ $p['attractive'] + $p['place_viewer'] + $p['place_stimulate'] + $p['specific_sell'] + $p['specific_clear'] + $p['specific_provide'] + $p['specific_focus'] + $p['specific_promote'] + $p['discuss'] + $p['attention'] + $p['awareness'])/ 21;
+      $suma += $sumaparcial;
+    }
+    if ($valoracions != 0) {
+      $film[$i]['total'] = round($suma / $valoracions, 4);
+    } else {
+      $film[$i]['total'] = 0;
+    }
+    $i++;
+  }
+  $valorations = [];
+  $max = 0;
+  for ($i=0; $i < sizeof($film); $i++) {
+    $valorations[] = $film[$i]['total'];
+  }
+  $db = NULL;
+  arsort($valorations);
+  $ordre = array_keys($valorations);
+  $winners['primer'] = $film[$ordre[0]];
+  $winners['segon'] = $film[$ordre[1]];
+  return $winners;
+});
+
+Flight::map('getWinnerDocumentary', function() {
+  $db = Flight::db();
+  $sql = "SELECT id, title FROM documentaryfilms";
+  $query = $db->prepare($sql);
+  $query->execute();
+  $i = 0;
+  $film = [];
+  while ($f = $query->fetch(PDO::FETCH_ASSOC)) {
+    $film[$i]['id'] = $f['id'];
+    $film[$i]['title'] = $f['title'];
+    $sql = "SELECT * FROM evaluation_documentary WHERE film = :id";
+    $q = $db->prepare($sql);
+    $q->bindParam(':id', $f['id']);
+    $q->execute();
+    $eval = [];
+    while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+      $eval[] = $row;
+    }
+    $suma = 0;
+    $valoracions = count($eval);
+    foreach ($eval as $p) {
+      $sumaparcial = ($p['originalityscript'] + $p['rythm'] + $p['length'] + $p['photography'] + $p['sound'] + $p['edition'] + $p['specialeffects'] + $p['iseffective'] + $p['plot'] + $p['convincing']+ $p['attractive'] + $p['place_viewer'] + $p['place_stimulate'] + $p['specific_travel'] + $p['specific_sustain'] + $p['specific_narrative'] + $p['specific_focus'] + $p['specific_reflection'] + $p['specific_suggest'] + $p['discuss'] + $p['attention'] + $p['awareness'])/ 22;
+      $suma += $sumaparcial;
+    }
+    if ($valoracions != 0) {
+      $film[$i]['total'] = round($suma / $valoracions, 4);
+    } else {
+      $film[$i]['total'] = 0;
+    }
+    $i++;
+  }
+  $valorations = [];
+  $max = 0;
+  for ($i=0; $i < sizeof($film); $i++) {
+    $valorations[] = $film[$i]['total'];
+  }
+  $db = NULL;
+  arsort($valorations);
+  $ordre = array_keys($valorations);
+  $winners['primer'] = $film[$ordre[0]];
+  $winners['segon'] = $film[$ordre[1]];
+  return $winners;
+});
+
+Flight::map('getWinnerCorporate', function() {
+  $db = Flight::db();
+  $sql = "SELECT id, title FROM corporatefilms";
+  $query = $db->prepare($sql);
+  $query->execute();
+  $i = 0;
+  $film = [];
+  while ($f = $query->fetch(PDO::FETCH_ASSOC)) {
+    $film[$i]['id'] = $f['id'];
+    $film[$i]['title'] = $f['title'];
+    $sql = "SELECT * FROM evaluation_corporate WHERE film = :id";
+    $q = $db->prepare($sql);
+    $q->bindParam(':id', $f['id']);
+    $q->execute();
+    $eval = [];
+    while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+      $eval[] = $row;
+    }
+    $suma = 0;
+    $valoracions = count($eval);
+    foreach ($eval as $p) {
+      $sumaparcial = ($p['originalityscript'] + $p['rythm'] + $p['length'] + $p['photography'] + $p['sound'] + $p['edition'] + $p['specialeffects'] + $p['iseffective'] + $p['plot'] + $p['convincing']+ $p['attractive'] + $p['place_viewer'] + $p['place_stimulate'] + $p['specific_green'] + $p['specific_csr'] + $p['specific_provide'] + $p['specific_portray'] + $p['discuss'] + $p['attention'] + $p['awareness'])/ 20;
+      $suma += $sumaparcial;
+    }
+    if ($valoracions != 0) {
+      $film[$i]['total'] = round($suma / $valoracions, 4);
+    } else {
+      $film[$i]['total'] = 0;
+    }
+    $i++;
+  }
+  $valorations = [];
+  $max = 0;
+  for ($i=0; $i < sizeof($film); $i++) {
+    $valorations[] = $film[$i]['total'];
+  }
+  $db = NULL;
+  arsort($valorations);
+  $ordre = array_keys($valorations);
+  $winners['primer'] = $film[$ordre[0]];
+  $winners['segon'] = $film[$ordre[1]];
+  return $winners;
+});
+
 ///////
 // Function to send HTML email
 ///////
@@ -1466,6 +1598,221 @@ Flight::route('POST /mailtocomps', function() {
 
 Flight::route('/testupload', function() {
   phpinfo();
+});
+
+///////
+// List all members registered to Sustainable Day
+///////
+Flight::route('GET /sopar', function(){
+  $db = Flight::db();
+
+  $sql = "SELECT * FROM sopar";
+  $comp = $db->prepare($sql);
+  $comp->execute();
+  $comps = [];
+  while ($c = $comp->fetch(PDO::FETCH_ASSOC)) {
+    $comps[] = $c;
+  }
+
+  $db = NULL;
+
+  Flight::json($comps);
+});
+
+///////
+// Delete selected member registered to Sustainable Day
+///////
+Flight::route('DELETE /sopar/@id', function($id){
+  $db = Flight::db();
+
+  $sql = "DELETE FROM sopar WHERE id = :id";
+  $comp = $db->prepare($sql);
+  $comp->bindParam(':id', $id);
+  $comp->execute();
+  if ($comp->rowCount() > 0) {
+    $header = 200;
+    $res = "Usuari eliminat correctament";
+  } else {
+    $header = 404;
+    $res = "L'usuari ja no existeix";
+  }
+
+  $db = NULL;
+
+  Flight::json($res,$header);
+});
+
+///////
+// Add to Sustainable Day
+///////
+Flight::route('POST /sopar', function(){
+  $db = Flight::db();
+  $data = [];
+
+  $dades = file_get_contents('php://input');
+  $dades = mb_convert_encoding($dades, 'HTML-ENTITIES', "UTF-8");
+
+  $post = json_decode($dades,true);
+
+  ///////
+  // Check if user is registered
+  ///////
+  $sql = "SELECT id FROM sopar WHERE email = :email LIMIT 1";
+  $check = $db->prepare($sql);
+  $check->bindParam(':email', $post['email']);
+  $check->execute();
+  $count = $check->rowCount();
+
+  if ($count === 0){
+    if (isset($post['comentaris'])) {
+      $sql = "INSERT INTO sopar(nom, cognoms, email, direccio, ciutat, pais, comentaris, via) VALUES (:nom, :cognoms, :email, :direccio, :ciutat, :pais, :comentaris, 1)";
+    } else {
+      $sql = "INSERT INTO sopar(nom, cognoms, email, direccio, ciutat, pais, via) VALUES (:nom, :cognoms, :email, :direccio, :ciutat, :pais, 1)";
+    }
+
+
+    $new = $db->prepare($sql);
+    $new->bindParam(':nom', $post['nom']);
+    $new->bindParam(':cognoms', $post['cognoms']);
+    $new->bindParam(':email', $post['email']);
+    $new->bindParam(':direccio', $post['direccio']);
+    $new->bindParam(':ciutat', $post['city']);
+    $new->bindParam(':pais', $post['country']);
+    if (isset($post['comentaris'])) {
+      $new->bindParam(':comentaris', $post['comentaris']);
+    }
+
+    try {
+      if ($new->execute()) {
+        $data['status'] = 200;
+        $data['message'] = 'User created succesfully';
+      } else {
+        $data['status'] = 400;
+        $data['message'] = 'Unknown error';
+      }
+    } catch (Exception $e) {
+      echo 'Exception: ',  $e->getMessage();
+    }
+  } else {
+    $data['status'] = 404;
+    $data['message'] = 'User exist';
+  }
+
+  $db = NULL;
+
+  Flight::json($data);
+});
+
+///////
+// List selected member registered to Sustainable day
+///////
+Flight::route('GET /assistentsopar/@id', function($id){
+  $db = Flight::db();
+
+  $sql = "SELECT * FROM sopar WHERE id = :id";
+  $comp = $db->prepare($sql);
+  $comp->bindParam(':id', $id);
+  $comp->execute();
+  $c = $comp->fetch(PDO::FETCH_ASSOC);
+
+  $db = NULL;
+
+  Flight::json($c);
+});
+
+///////
+// Edit user registered to Sustainable day
+///////
+Flight::route('POST /modifysopar', function() {
+  $data = file_get_contents('php://input');
+  $data = json_decode($data, true);
+
+  print_r($data);
+
+  $db = Flight::db();
+
+  $sql = "UPDATE sopar SET nom=:nom, cognoms=:cognoms, email=:email, direccio=:direccio, ciutat=:ciutat, pais=:pais, comentaris=:comentaris WHERE id=:id";
+  $query = $db->prepare($sql);
+  $query->bindParam(':nom', $data['nom']);
+  $query->bindParam(':cognoms', $data['cognoms']);
+  $query->bindParam(':email', $data['email']);
+  $query->bindParam(':direccio', $data['direccio']);
+  $query->bindParam(':ciutat', $data['ciutat']);
+  $query->bindParam(':pais', $data['pais']);
+  $query->bindParam(':comentaris', $data['comentaris']);
+  $query->bindParam(':id', $data['id']);
+  if ($query->execute()) {
+    $response['status'] = 200;
+  } else {
+    $response['status'] = 500;
+  }
+
+  Flight::json($response);
+
+  $db = NULL;
+});
+
+///////
+// Get winners
+///////
+Flight::route('GET /winners', function() {
+  // $db = Flight::db();
+  $winners = [];
+
+  $winners['tourism']['travel'] = Flight::getWinnerTourism('travel');
+  $winners['tourism']['cultural'] = Flight::getWinnerTourism('cultural');
+  $winners['tourism']['sports'] = Flight::getWinnerTourism('sports');
+  $winners['tourism']['expedition'] = Flight::getWinnerTourism('expedition');
+  $winners['tourism']['hotels'] = Flight::getWinnerTourism('hotels');
+  $winners['tourism']['events'] = Flight::getWinnerTourism('events');
+  $winners['tourism']['health'] = Flight::getWinnerTourism('health');
+  $winners['tourism']['rural'] = Flight::getWinnerTourism('rural');
+  $winners['tourism']['naturaltour'] = Flight::getWinnerTourism('naturaltour');
+  $winners['tourism']['enotourism'] = Flight::getWinnerTourism('enotourism');
+  $winners['tourism']['destinations'] = Flight::getWinnerTourism('destinations');
+  $winners['tourism']['animation'] = Flight::getWinnerTourism('animation');
+  $winners['documentary'] = Flight::getWinnerDocumentary();
+  $winners['corporate'] = Flight::getWinnerCorporate();
+
+  Flight::json($winners);
+});
+
+///////
+// List all competitors
+///////
+Flight::route('GET /students', function(){
+  $db = Flight::db();
+
+  $sql = "SELECT * FROM terreslab_student";
+  $comp = $db->prepare($sql);
+  $comp->execute();
+  $comps = [];
+  while ($c = $comp->fetch(PDO::FETCH_ASSOC)) {
+    $comps[] = $c;
+  }
+
+  $db = NULL;
+
+  Flight::json($comps);
+});
+
+///////
+// List one day assistants
+///////
+Flight::route('GET /oneday', function(){
+  $db = Flight::db();
+
+  $sql = "SELECT * FROM terreslab_oneday";
+  $comp = $db->prepare($sql);
+  $comp->execute();
+  $comps = [];
+  while ($c = $comp->fetch(PDO::FETCH_ASSOC)) {
+    $comps[] = $c;
+  }
+
+  $db = NULL;
+
+  Flight::json($comps);
 });
 
 Flight::start();

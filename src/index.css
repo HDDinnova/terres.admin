@@ -73,3 +73,7 @@ code {
 table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2), table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
   padding: 2px !important;
 }
+
+.viafn{
+  background-color: #c2c9f4;
+}
